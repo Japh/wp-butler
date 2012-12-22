@@ -74,6 +74,8 @@ function wp_butler_actions() {
 			array( "label" => "Add New User", "url" => "user-new.php" ),
 		);
 
+		$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
+
 		foreach ( $butler_actions as $value) {
 			if ( preg_match( '/' . $term . '/i', $value['label'] ) ) {
 				$return[] = array(
@@ -85,7 +87,7 @@ function wp_butler_actions() {
 
 	}
 
-	wp_die( json_encode( apply_filters( 'wp_butler_ajax_actions', $return ) ) );
+	wp_die( json_encode( $return ) );
 }; 
 
 add_action( 'wp_ajax_wp_butler_actions', 'wp_butler_actions' );
