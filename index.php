@@ -7,7 +7,7 @@
 	/*
 	Plugin Name: WP Butler
 	Plugin URI: http://www.jordesign.com/wp-butler
-	Description: WP Butler brings your what you need in the Wordpress Admin
+	Description: WP Butler brings you what you need in the Wordpress Admin. An autocomplete menu to let you jump to all the common tasks you may need to perform.
 	Author: Jordan Gillman
 	Version: 1.0
 	Author URI: http://www.jordesign.com
@@ -21,8 +21,8 @@
 	}
 	
 	function jg_wp_butler() { 
-	
-	echo '<form id="wpButler"><input id="wpButlerField"></form>';  
+	echo '<p style="padding: 5px 0px; margin:0 0 10px 0; color: #8F8F8F;font-size: 14px;border-bottom:1px solid #ddd;display:inline-block;">What would you like to do?</p>';
+	echo '<form id="wpButler"><input type="text" placeholder="just start typing..." style="width:90%; font-size:16px;padding:4px 0 6px 10px"id="wpButlerField"></form>';  
 	}
 	
 	
