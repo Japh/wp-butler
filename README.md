@@ -19,7 +19,7 @@ WP Butler adds a simple text field to your WordPress Admin, that puts everthing 
 
 1. Upload the 'wp-butler' folder to the '/wp-content/plugins/' directory
 2. Activate the WP Butler plugin through the 'Plugins' menu in WordPress
-3. Press shift+alt+b on any admin page to launch WP Butler.
+3. Press `shift+alt+b` on any admin page to launch WP Butler.
 4. Work Smarter and Faster!
 
 ## Frequently Asked Questions
