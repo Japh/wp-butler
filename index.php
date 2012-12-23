@@ -44,6 +44,7 @@ function wp_butler_actions() {
 
 	if ( is_admin() && wp_verify_nonce( $nonce, 'wp_butler_nonce' ) ) {
 		$butler_actions = array(
+			array( "label" => "Go to Dashboard", "url" => "index.php" ),
 			array( "label" => "Add Page", "url" => "post-new.php?post_type=page" ),
 			array( "label" => "Add Post", "url" => "post-new.php?post_type=post" ),
 			array( "label" => "New Page", "url" => "post-new.php?post_type=page" ),
