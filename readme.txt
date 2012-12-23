@@ -1,10 +1,10 @@
 === WP Butler ===
-Contributors: jordesign, japh
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: admin, actions, butler, autocomplete, automate
-Requires at least: 3.1
-Tested up to: 3.5
+Contributors: jordesign, japh  
+License: GPLv2 or later  
+License URI: http://www.gnu.org/licenses/gpl-2.0.html  
+Tags: admin, actions, butler, autocomplete, automate  
+Requires at least: 3.1  
+Tested up to: 3.5  
 Stable tag: trunk
 
 Provides a text field in the WP Admin allowing you to jump to common WP Actions.
@@ -19,7 +19,7 @@ WP Butler adds a simple text field to your WordPress Admin, that puts everthing 
 
 1. Upload the 'wp-butler' folder to the '/wp-content/plugins/' directory
 1. Activate the WP Butler plugin through the 'Plugins' menu in WordPress
-1. Press shift+alt+b on any admin page to launch WP Butler.
+1. Press `shift+alt+b` on any admin page to launch WP Butler.
 1. Work Smarter and Faster!
 
 == Frequently Asked Questions ==
