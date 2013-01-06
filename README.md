@@ -5,7 +5,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: admin, actions, butler, autocomplete, automate  
 Requires at least: 3.1  
 Tested up to: 3.5  
-Stable tag: trunk
+Stable tag: 1.1
 
 Provides a text field in the WP Admin allowing you to jump to common WP Actions.
 
@@ -26,6 +26,10 @@ WP Butler adds a simple text field to your WordPress Admin, that puts everthing 
 
 
 ## Changelog
+
+### 1.1
+
+* Updated to move the functionality to a keyboard shortcut and modal arrangement. Now accessible from any admin screen.
 
 ### 1.0
 

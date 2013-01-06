@@ -1,16 +1,16 @@
 <?php
 /**
  * @package WP-Butler
- * @version 1.0
+ * @version 1.1
  */
 
 /*
 Plugin Name: WP Butler
-Plugin URI: http://www.jordesign.com/wp-butler
+Plugin URI: http://wpbutler.com
 Description: WP Butler brings you what you need in the Wordpress Admin. An autocomplete menu to let you jump to all the common tasks you may need to perform.
-Author: Jordan Gillman
-Version: 1.0
-Author URI: http://www.jordesign.com
+Author: Japh Thomson
+Version: 1.1
+Author URI: http://japh.com.au
 */
 
 add_action( 'admin_footer', 'jg_wp_butler' );
