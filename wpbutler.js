@@ -1,16 +1,14 @@
 // WP Butler
 jQuery( function($) {
 
-	Mousetrap.bind( 'shift+alt+b', function(e) {
+	$.keyStroke( 66, function() {
 		$( "#butler-dialog" ).dialog({
 			modal: true,
 			closeOnEscape: true
 		});
 
 		$( "#wpButlerField" ).focus();
-
-		return false;
-	}, 'keyup' );
+	}, { modKeys: [ 'shiftKey', 'altKey' ] } );
 
 	$( "#butler-close-dialog" ).click(function(e) {
 		e.preventDefault();

@@ -28,8 +28,9 @@ function jg_wp_butler() {
 // Enqueue jQuery UI Autocomplete
 function jg_add_autocomplete() {
 	if ( is_admin() ) {
-		wp_register_script( 'mousetrap', plugins_url( 'mousetrap/mousetrap.min.js', __FILE__ ), array(), '1.2.2', true );
-		wp_enqueue_script( 'wpbutler', plugins_url( 'wpbutler.js', __FILE__ ), array( 'jquery', 'jquery-ui-autocomplete', 'jquery-ui-dialog', 'mousetrap' ), '1.0', true );
+		//wp_register_script( 'mousetrap', plugins_url( 'mousetrap/mousetrap.min.js', __FILE__ ), array(), '1.2.2', true );
+		wp_register_script( 'keystroke', plugins_url( 'keystroke/jquery.keystroke.min.js', __FILE__ ), array(), '0d77ac267da80cbe0e0ca8e6fe8b5b2bb8ee1bac', true );
+		wp_enqueue_script( 'wpbutler', plugins_url( 'wpbutler.js', __FILE__ ), array( 'jquery', 'jquery-ui-autocomplete', 'jquery-ui-dialog', 'keystroke' ), '1.1', true );
 		wp_enqueue_style( 'wp-jquery-ui-dialog' );
 		wp_enqueue_style( 'wpbutler', plugins_url( 'wpbutler.css', __FILE__ ) );
 	}
