@@ -13,7 +13,7 @@ Provides a text field in the WP Admin allowing you to jump to common WP Actions.
 
 = Streamline the way you use the WordPress Admin =
 
-WP Butler adds a simple text field to your WordPress Admin, that puts everthing at your fingertips. Simply start typing the action you wish to perform, and it will show you all the possible options. You're always a single click away.
+WP Butler adds a simple text field to your WordPress Admin, that puts everything at your fingertips. Simply start typing the action you wish to perform, and it will show you all the possible options. You're always a single click away.
 
 == Installation ==
 
