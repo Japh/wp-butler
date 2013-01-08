@@ -27,6 +27,11 @@ WP Butler adds a simple text field to your WordPress Admin, that puts everthing 
 
 == Changelog ==
 
+= 1.3 =
+
+* Plugin description now shows the keyboard shortcut to call your butler.
+* Bug fixed where butler input field appear below menu in certain circumstances.
+
 = 1.2 =
 
 * Changed structure to object-oriented.
