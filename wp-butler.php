@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Butler
 Plugin URI: http://wpbutler.com
-Description: WP Butler brings you what you need in the Wordpress Admin. An autocomplete menu to let you jump to all the common tasks you may need to perform.
+Description: WP Butler brings you what you need in the Wordpress Admin. An autocomplete menu to let you jump to all the common tasks you may need to perform, just hit <code>shift+alt+b</code>!
 Author: Japh Thomson
 Version: 1.2
 Author URI: http://japh.com.au
