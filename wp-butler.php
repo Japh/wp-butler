@@ -9,7 +9,7 @@ Author URI: http://japh.com.au
 License: GPL2
 */
 
-/*  Copyright 2012  Japh  (email : wordpress@japh.com.au)
+/*  Copyright 2013  Japh  (email : wordpress@japh.com.au)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
