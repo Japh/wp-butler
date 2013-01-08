@@ -24,6 +24,11 @@ WP Butler adds a simple text field to your WordPress Admin, that puts everthing 
 
 == Frequently Asked Questions ==
 
+There are none! ...yet.
+
+== Screenshots ==
+
+1. WP Butler in action
 
 == Changelog ==
 
