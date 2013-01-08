@@ -1,3 +1,4 @@
 #wp-butler-dialog {
+	display: none;
 	min-height: inherit !important;
 }
