@@ -32,7 +32,7 @@ License: GPL2
 
 class Japh_Butler {
 
-	public $version = '1.2';
+	public $version = '1.3';
 
 	function __construct() {
 
