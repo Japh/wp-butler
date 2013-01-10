@@ -5,7 +5,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: admin, actions, butler, autocomplete, automate  
 Requires at least: 3.1  
 Tested up to: 3.5  
-Stable tag: 1.3
+Stable tag: 1.4
 
 Provides a text field in the WP Admin allowing you to jump to common WP Actions.
 
@@ -31,6 +31,10 @@ There are none! ...yet.
 1. WP Butler in action
 
 == Changelog ==
+
+= 1.4 =
+
+*
 
 = 1.3 =
 
