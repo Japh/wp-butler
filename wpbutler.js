@@ -16,7 +16,7 @@ jQuery( function($) {
 	});
 
 	$( "#wp-butler-field" ).autocomplete({
-		source: ajaxurl + '?action=wp_butler_actions&_nonce=' + $.trim( $('#wp-butler-nonce').val() ),
+		source: ajaxurl + '?action=wp_butler_actions&_nonce=' + $.trim( $('#wp-butler-nonce').val() ) + '&_context=' + $.trim( $('#wp-butler-context').val() ),
 		select: function( event , ui ) {
 			window.location.href = ui.item.url;
 			return false;

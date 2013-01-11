@@ -42,8 +42,6 @@ class Japh_Butler {
 			add_action( 'admin_enqueue_scripts', array( $this, 'wpbutler_enqueue' ) );
 			add_action( 'admin_footer', array( $this, 'wpbutler_footer' ) );
 			add_action( 'wp_ajax_wp_butler_actions', array( $this, 'wpbutler_actions' ) );
-
-			add_action( 'wp_butler_ajax_actions', array( $this, 'wpbutler_generate_actions' ) );
 		}
 
 	}
@@ -51,7 +49,7 @@ class Japh_Butler {
 	function wpbutler_footer() {
 		echo '<div id="wp-butler-dialog" title="What would you like to do?">';
 		echo '	<p>';
-		echo '		<form id="wp-butler-form"><input type="text" placeholder="Just start typing..." id="wp-butler-field"><input type="hidden" id="wp-butler-nonce" name="wp-butler-nonce" value="' . wp_create_nonce( 'wp_butler_nonce' ) . '" /></form>';
+		echo '		<form id="wp-butler-form"><input type="text" placeholder="Just start typing..." id="wp-butler-field"><input type="hidden" id="wp-butler-nonce" name="wp-butler-nonce" value="' . wp_create_nonce( 'wp_butler_nonce' ) . '" /><input type="hidden" id="wp-butler-context" name="wp-butler-context" value="' . ( is_network_admin() ? 'network' : 'site' ) . '" /></form>';
 		echo '	</p>';
 		echo '</div>';
 	}
@@ -75,9 +73,40 @@ class Japh_Butler {
 		wp_enqueue_script( 'wpbutler', plugins_url( 'wpbutler.js', __FILE__ ), array( 'jquery-ui-core', 'jquery-ui-autocomplete', 'jquery-ui-dialog', 'keystroke' ), $this->version, true );
 	}
 
-	function wpbutler_generate_actions( $actions ) {
-		$args = func_get_args();
+	function wpbutler_generate_generic_actions( $actions ) {
+		array_push( $actions, array( "label" => "Go to Dashboard", "url" => "index.php" ) );
+		array_push( $actions, array( "label" => "Change Theme", "url" => "themes.php" ) );
+		array_push( $actions, array( "label" => "Install Theme", "url" => "theme-install.php" ) );
+		array_push( $actions, array( "label" => "View Plugins", "url" => "plugins.php" ) );
+		array_push( $actions, array( "label" => "Install Plugin", "url" => "plugin-install.php" ) );
+		array_push( $actions, array( "label" => "View Users", "url" => "users.php" ) );
+		array_push( $actions, array( "label" => "Add New User", "url" => "user-new.php" ) );
 
+		return $actions;
+	}
+
+	function wpbutler_generate_site_actions( $actions ) {
+		array_push( $actions, array( "label" => "Media Library", "url" => "upload.php" ) );
+		array_push( $actions, array( "label" => "Add Media", "url" => "media-new.php" ) );
+		array_push( $actions, array( "label" => "Upload Media", "url" => "media-new.php" ) );
+		array_push( $actions, array( "label" => "New Media Item", "url" => "media-new.php" ) );
+		array_push( $actions, array( "label" => "Approve Comments", "url" => "edit-comments.php" ) );
+		array_push( $actions, array( "label" => "View Comments", "url" => "edit-comments.php" ) );
+		array_push( $actions, array( "label" => "Add Widgets", "url" => "widgets.php" ) );
+		array_push( $actions, array( "label" => "Edit Widgets", "url" => "widgets.php" ) );
+		array_push( $actions, array( "label" => "Add Menu", "url" => "nav-menus.php" ) );
+		array_push( $actions, array( "label" => "Edit Menus", "url" => "nav-menus.php" ) );
+		array_push( $actions, array( "label" => "Edit Settings", "url" => "options-general.php" ) );
+		array_push( $actions, array( "label" => "Edit Permalinks", "url" => "options-permalink.php" ) );
+
+		return $actions;
+	}
+
+	function wpbutler_generate_multisite_actions( $actions ) {
+		return $actions;
+	}
+
+	function wpbutler_generate_post_type_actions( $actions ) {
 		foreach ( $this->post_types as $post_type ) {
 			$name = ucfirst( $post_type );
 			$new_url = 'post-new.php?post_type=' . $post_type;
@@ -97,29 +126,19 @@ class Japh_Butler {
 		$return = array();
 		$term = $_REQUEST['term'];
 		$nonce = $_REQUEST['_nonce'];
+		$context = $_REQUEST['_context'];
 
 		if ( is_admin() && wp_verify_nonce( $nonce, 'wp_butler_nonce' ) ) {
-			$butler_actions = array(
-				array( "label" => "Go to Dashboard", "url" => "index.php" ),
-				array( "label" => "Media Library", "url" => "upload.php" ),
-				array( "label" => "Add Media", "url" => "media-new.php" ),
-				array( "label" => "Upload Media", "url" => "media-new.php" ),
-				array( "label" => "New Media Item", "url" => "media-new.php" ),
-				array( "label" => "Approve Comments", "url" => "edit-comments.php" ),
-				array( "label" => "View Comments", "url" => "edit-comments.php" ),
-				array( "label" => "Change Theme", "url" => "themes.php" ),
-				array( "label" => "Install Theme", "url" => "theme-install.php" ),
-				array( "label" => "Add Widgets", "url" => "widgets.php" ),
-				array( "label" => "Edit Widgets", "url" => "widgets.php" ),
-				array( "label" => "Add Menu", "url" => "nav-menus.php" ),
-				array( "label" => "Edit Menus", "url" => "nav-menus.php" ),
-				array( "label" => "Edit Settings", "url" => "options-general.php" ),
-				array( "label" => "Edit Permalinks", "url" => "options-permalink.php" ),
-				array( "label" => "Install Plugin", "url" => "plugin-install.php" ),
-				array( "label" => "View Plugins", "url" => "plugins.php" ),
-				array( "label" => "View Users", "url" => "users.php" ),
-				array( "label" => "Add New User", "url" => "user-new.php" ),
-			);
+			$butler_actions = array();
+
+			$butler_actions = $this->wpbutler_generate_generic_actions( $butler_actions );
+			if ( is_network_admin() || $context == 'network' ) {
+				$butler_actions = $this->wpbutler_generate_multisite_actions( $butler_actions );
+			}
+			else {
+				$butler_actions = $this->wpbutler_generate_site_actions( $butler_actions );
+			}
+			$butler_actions = $this->wpbutler_generate_post_type_actions( $butler_actions );
 
 			$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
 
