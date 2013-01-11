@@ -33,13 +33,17 @@ License: GPL2
 class Japh_Butler {
 
 	public $version = '1.4';
+	public $post_types = array();
 
 	function __construct() {
 
 		if ( is_admin() ) {
+			$this->post_types = get_post_types( array( 'show_in_nav_menus' => true ), 'names', 'and' );
 			add_action( 'admin_enqueue_scripts', array( $this, 'wpbutler_enqueue' ) );
 			add_action( 'admin_footer', array( $this, 'wpbutler_footer' ) );
 			add_action( 'wp_ajax_wp_butler_actions', array( $this, 'wpbutler_actions' ) );
+
+			add_action( 'wp_butler_ajax_actions', array( $this, 'wpbutler_generate_actions' ) );
 		}
 
 	}
@@ -71,6 +75,24 @@ class Japh_Butler {
 		wp_enqueue_script( 'wpbutler', plugins_url( 'wpbutler.js', __FILE__ ), array( 'jquery-ui-core', 'jquery-ui-autocomplete', 'jquery-ui-dialog', 'keystroke' ), $this->version, true );
 	}
 
+	function wpbutler_generate_actions( $actions ) {
+		$args = func_get_args();
+
+		foreach ( $this->post_types as $post_type ) {
+			$name = ucfirst( $post_type );
+			$new_url = 'post-new.php?post_type=' . $post_type;
+			$edit_url = 'edit.php?post_type=' . $post_type;
+
+			array_push( $actions, array( "label" => "Add " . $name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "Create " . $name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "New " . $name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "Edit " . $name . "s", "url" => $edit_url ) );
+			array_push( $actions, array( "label" => "View All " . $name . "s", "url" => $edit_url ) );
+		}
+
+		return $actions;
+	}
+
 	function wpbutler_actions() {
 		$return = array();
 		$term = $_REQUEST['term'];
@@ -79,14 +101,6 @@ class Japh_Butler {
 		if ( is_admin() && wp_verify_nonce( $nonce, 'wp_butler_nonce' ) ) {
 			$butler_actions = array(
 				array( "label" => "Go to Dashboard", "url" => "index.php" ),
-				array( "label" => "Add Page", "url" => "post-new.php?post_type=page" ),
-				array( "label" => "Add Post", "url" => "post-new.php?post_type=post" ),
-				array( "label" => "New Page", "url" => "post-new.php?post_type=page" ),
-				array( "label" => "New Post", "url" => "post-new.php?post_type=post" ),
-				array( "label" => "Edit Posts", "url" => "edit.php" ),
-				array( "label" => "Edit Pages", "url" => "edit.php?post_type=page" ),
-				array( "label" => "View All Posts", "url" => "edit.php" ),
-				array( "label" => "View All Pages", "url" => "edit.php?post_type=page" ),
 				array( "label" => "Media Library", "url" => "upload.php" ),
 				array( "label" => "Add Media", "url" => "media-new.php" ),
 				array( "label" => "Upload Media", "url" => "media-new.php" ),
@@ -124,4 +138,7 @@ class Japh_Butler {
 
 }
 
-$japh_butler = new Japh_Butler();
+function execute_wp_butler() {
+	$japh_butler = new Japh_Butler();
+}
+add_action( 'admin_init', 'execute_wp_butler' );
