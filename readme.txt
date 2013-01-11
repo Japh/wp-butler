@@ -34,7 +34,8 @@ There are none! ...yet.
 
 = 1.4 =
 
-*
+* Added support for custom post types
+* No longer shows irrelevant actions in Network Admin
 
 = 1.3 =
 
