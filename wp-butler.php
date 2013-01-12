@@ -146,8 +146,8 @@ class Japh_Butler {
 			array_push( $actions, array( "label" => "Add " . $name, "url" => $new_url ) );
 			array_push( $actions, array( "label" => "Create " . $name, "url" => $new_url ) );
 			array_push( $actions, array( "label" => "New " . $name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "Edit " . $name . "s", "url" => $edit_url ) );
-			array_push( $actions, array( "label" => "View " . $name . "s", "url" => $edit_url ) );
+			array_push( $actions, array( "label" => "Edit " . $name, "url" => $edit_url ) );
+			array_push( $actions, array( "label" => "View " . $name, "url" => $edit_url ) );
 		}
 
 		return $actions;
