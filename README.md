@@ -34,6 +34,7 @@ There are none! ...yet.
 
 ### 1.5
 
+* Added support for taxonomies, including custom taxonomies
 * Surprise me!
 
 ### 1.4
