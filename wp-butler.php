@@ -78,12 +78,17 @@ class Japh_Butler {
 
 	function wpbutler_generate_generic_actions( $actions ) {
 		array_push( $actions, array( "label" => "Go to Dashboard", "url" => "index.php" ) );
+		array_push( $actions, array( "label" => "Home", "url" => "index.php" ) );
+		array_push( $actions, array( "label" => "Update Core", "url" => "update-core.php" ) );
 		array_push( $actions, array( "label" => "Change Theme", "url" => "themes.php" ) );
 		array_push( $actions, array( "label" => "Install Theme", "url" => "theme-install.php" ) );
 		array_push( $actions, array( "label" => "View Plugins", "url" => "plugins.php" ) );
+		array_push( $actions, array( "label" => "Update Plugins", "url" => "plugins.php" ) );
+		array_push( $actions, array( "label" => "Edit Plugins", "url" => "plugin-editor.php" ) );
 		array_push( $actions, array( "label" => "Install Plugin", "url" => "plugin-install.php" ) );
 		array_push( $actions, array( "label" => "View Users", "url" => "users.php" ) );
 		array_push( $actions, array( "label" => "Add New User", "url" => "user-new.php" ) );
+		array_push( $actions, array( "label" => "Edit Profile", "url" => "profile.php" ) );
 
 		return $actions;
 	}
@@ -100,7 +105,14 @@ class Japh_Butler {
 		array_push( $actions, array( "label" => "Add Menu", "url" => "nav-menus.php" ) );
 		array_push( $actions, array( "label" => "Edit Menus", "url" => "nav-menus.php" ) );
 		array_push( $actions, array( "label" => "Edit Settings", "url" => "options-general.php" ) );
+		array_push( $actions, array( "label" => "Edit General Settings", "url" => "options-general.php" ) );
+		array_push( $actions, array( "label" => "Edit Writing Settings", "url" => "options-writing.php" ) );
+		array_push( $actions, array( "label" => "Edit Reading Settings", "url" => "options-reading.php" ) );
+		array_push( $actions, array( "label" => "Edit Discussion Settings", "url" => "options-discussion.php" ) );
+		array_push( $actions, array( "label" => "Edit Media Settings", "url" => "options-media.php" ) );
 		array_push( $actions, array( "label" => "Edit Permalinks", "url" => "options-permalink.php" ) );
+		array_push( $actions, array( "label" => "Tools", "url" => "tools.php" ) );
+		array_push( $actions, array( "label" => "Import", "url" => "import.php" ) );
 
 		return $actions;
 	}

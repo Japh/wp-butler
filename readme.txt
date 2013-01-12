@@ -34,6 +34,7 @@ There are none! ...yet.
 
 = 1.5 =
 
+* Added support for the remainder the of admin menu items
 * Added support for taxonomies, including custom taxonomies
 * Surprise me!
 
