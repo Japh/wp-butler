@@ -162,6 +162,7 @@ class Japh_Butler {
 
 			$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
 
+			$random_action_url = $butler_actions[mt_rand( 0, count( $butler_actions ) ) - 1]['url'];
 			array_push( $butler_actions, array( "label" => "Surprise me!", "url" => $random_action_url ) );
 
 			foreach ( $butler_actions as $value ) {
