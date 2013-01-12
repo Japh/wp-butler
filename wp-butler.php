@@ -161,23 +161,45 @@ class Japh_Butler {
 		$nonce = $_REQUEST['_nonce'];
 		$context = $_REQUEST['_context'];
 
+		$term_words = explode( ' ', $term );
+		$keyword = $term_words[0];
+
 		if ( is_admin() && wp_verify_nonce( $nonce, 'wp_butler_nonce' ) ) {
+
 			$butler_actions = array();
 
-			$butler_actions = $this->generate_generic_actions( $butler_actions );
-			if ( is_network_admin() || $context == 'network' ) {
-				$butler_actions = $this->generate_multisite_actions( $butler_actions );
-			}
-			else {
-				$butler_actions = $this->generate_site_actions( $butler_actions );
-			}
-			$butler_actions = $this->generate_post_type_actions( $butler_actions );
-			$butler_actions = $this->generate_taxonomy_actions( $butler_actions );
+			switch ( $keyword ) {
+				case 'search':
+					array_shift( $term_words );
+					$term = implode( ' ', $term_words );
+					$params = array(
+						's' => $term,
+						'posts_per_page' => 10,
+					);
+					$search = new WP_Query( $params );
 
-			$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
+					while ( $search->have_posts() ) :
+						$search->next_post();
+						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => 'post.php?post=' . $search->post->ID . '&action=edit' ) );
+					endwhile;
 
-			$random_action_url = $butler_actions[mt_rand( 0, count( $butler_actions ) ) - 1]['url'];
-			array_push( $butler_actions, array( "label" => "Surprise me!", "url" => $random_action_url ) );
+					break;
+				default:
+					$butler_actions = $this->generate_generic_actions( $butler_actions );
+					if ( is_network_admin() || $context == 'network' ) {
+						$butler_actions = $this->generate_multisite_actions( $butler_actions );
+					}
+					else {
+						$butler_actions = $this->generate_site_actions( $butler_actions );
+					}
+					$butler_actions = $this->generate_post_type_actions( $butler_actions );
+					$butler_actions = $this->generate_taxonomy_actions( $butler_actions );
+
+					$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
+
+					$random_action_url = $butler_actions[mt_rand( 0, count( $butler_actions ) ) - 1]['url'];
+					array_push( $butler_actions, array( "label" => "Surprise me!", "url" => $random_action_url ) );
+			}
 
 			foreach ( $butler_actions as $value ) {
 				if ( preg_match( '/' . $term . '/i', $value['label'] ) ) {

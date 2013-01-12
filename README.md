@@ -36,6 +36,7 @@ There are none! ...yet.
 
 * Added support for the remainder the of admin menu items
 * Added support for taxonomies, including custom taxonomies
+* Added support for search (core post types only) with keyword 'search'
 * Surprise me!
 
 ### 1.4
