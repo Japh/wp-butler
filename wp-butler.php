@@ -34,11 +34,14 @@ class Japh_Butler {
 
 	public $version = '1.5';
 	public $post_types = array();
+	public $taxonomies = array();
 
 	function __construct() {
 
 		if ( is_admin() ) {
-			$this->post_types = get_post_types( array( 'show_in_nav_menus' => true ), 'names', 'and' );
+			$this->post_types = get_post_types( array( 'show_in_nav_menus' => true ), 'objects', 'and' );
+			$this->taxonomies = get_taxonomies( array( 'show_in_nav_menus' => true ), 'objects', 'and' );
+
 			add_action( 'admin_enqueue_scripts', array( $this, 'wpbutler_enqueue' ) );
 			add_action( 'admin_footer', array( $this, 'wpbutler_footer' ) );
 			add_action( 'wp_ajax_wp_butler_actions', array( $this, 'wpbutler_actions' ) );
@@ -107,8 +110,8 @@ class Japh_Butler {
 	}
 
 	function wpbutler_generate_post_type_actions( $actions ) {
-		foreach ( $this->post_types as $post_type ) {
-			$name = ucfirst( $post_type );
+		foreach ( $this->post_types as $post_type => $post_type_object ) {
+			$name = ucfirst( $post_type_object->labels->name );
 			$new_url = 'post-new.php?post_type=' . $post_type;
 			$edit_url = 'edit.php?post_type=' . $post_type;
 
@@ -117,6 +120,22 @@ class Japh_Butler {
 			array_push( $actions, array( "label" => "New " . $name, "url" => $new_url ) );
 			array_push( $actions, array( "label" => "Edit " . $name . "s", "url" => $edit_url ) );
 			array_push( $actions, array( "label" => "View All " . $name . "s", "url" => $edit_url ) );
+		}
+
+		return $actions;
+	}
+
+	function wpbutler_generate_taxonomy_actions( $actions ) {
+		foreach ( $this->taxonomies as $taxonomy => $taxonomy_object ) {
+			$name = ucfirst( $taxonomy_object->labels->name );
+			$edit_url = 'edit-tags.php?taxonomy=' . $taxonomy . '&post_type=' . $taxonomy_object->object_type[0];
+			$new_url = $edit_url;
+
+			array_push( $actions, array( "label" => "Add " . $name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "Create " . $name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "New " . $name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "Edit " . $name . "s", "url" => $edit_url ) );
+			array_push( $actions, array( "label" => "View " . $name . "s", "url" => $edit_url ) );
 		}
 
 		return $actions;
@@ -139,10 +158,10 @@ class Japh_Butler {
 				$butler_actions = $this->wpbutler_generate_site_actions( $butler_actions );
 			}
 			$butler_actions = $this->wpbutler_generate_post_type_actions( $butler_actions );
+			$butler_actions = $this->wpbutler_generate_taxonomy_actions( $butler_actions );
 
 			$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
 
-			$random_action_url = $butler_actions[mt_rand( 0, count( $butler_actions ) )]['url'];
 			array_push( $butler_actions, array( "label" => "Surprise me!", "url" => $random_action_url ) );
 
 			foreach ( $butler_actions as $value ) {
