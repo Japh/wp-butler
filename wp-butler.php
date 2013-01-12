@@ -124,14 +124,15 @@ class Japh_Butler {
 	function wpbutler_generate_post_type_actions( $actions ) {
 		foreach ( $this->post_types as $post_type => $post_type_object ) {
 			$name = ucfirst( $post_type_object->labels->name );
+			$singular_name = ucfirst( $post_type_object->labels->singular_name );
 			$new_url = 'post-new.php?post_type=' . $post_type;
 			$edit_url = 'edit.php?post_type=' . $post_type;
 
-			array_push( $actions, array( "label" => "Add " . $name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "Create " . $name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "New " . $name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "Edit " . $name . "s", "url" => $edit_url ) );
-			array_push( $actions, array( "label" => "View All " . $name . "s", "url" => $edit_url ) );
+			array_push( $actions, array( "label" => "Add " . $singular_name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "Create " . $singular_name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "New " . $singular_name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "Edit " . $name, "url" => $edit_url ) );
+			array_push( $actions, array( "label" => "View All " . $name, "url" => $edit_url ) );
 		}
 
 		return $actions;
@@ -140,12 +141,13 @@ class Japh_Butler {
 	function wpbutler_generate_taxonomy_actions( $actions ) {
 		foreach ( $this->taxonomies as $taxonomy => $taxonomy_object ) {
 			$name = ucfirst( $taxonomy_object->labels->name );
+			$singular_name = ucfirst( $taxonomy_object->labels->singular_name );
 			$edit_url = 'edit-tags.php?taxonomy=' . $taxonomy . '&post_type=' . $taxonomy_object->object_type[0];
 			$new_url = $edit_url;
 
-			array_push( $actions, array( "label" => "Add " . $name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "Create " . $name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "New " . $name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "Add " . $singular_name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "Create " . $singular_name, "url" => $new_url ) );
+			array_push( $actions, array( "label" => "New " . $singular_name, "url" => $new_url ) );
 			array_push( $actions, array( "label" => "Edit " . $name, "url" => $edit_url ) );
 			array_push( $actions, array( "label" => "View " . $name, "url" => $edit_url ) );
 		}
