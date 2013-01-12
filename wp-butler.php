@@ -42,14 +42,14 @@ class Japh_Butler {
 			$this->post_types = get_post_types( array( 'show_in_nav_menus' => true ), 'objects', 'and' );
 			$this->taxonomies = get_taxonomies( array( 'show_in_nav_menus' => true ), 'objects', 'and' );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'wpbutler_enqueue' ) );
-			add_action( 'admin_footer', array( $this, 'wpbutler_footer' ) );
-			add_action( 'wp_ajax_wp_butler_actions', array( $this, 'wpbutler_actions' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+			add_action( 'admin_footer', array( $this, 'footer' ) );
+			add_action( 'wp_ajax_wp_butler_actions', array( $this, 'actions' ) );
 		}
 
 	}
 
-	function wpbutler_footer() {
+	function footer() {
 		echo '<div id="wp-butler-dialog" title="What would you like to do?">';
 		echo '	<p>';
 		echo '		<form id="wp-butler-form"><input type="text" placeholder="Just start typing..." id="wp-butler-field"><input type="hidden" id="wp-butler-nonce" name="wp-butler-nonce" value="' . wp_create_nonce( 'wp_butler_nonce' ) . '" /><input type="hidden" id="wp-butler-context" name="wp-butler-context" value="' . ( is_network_admin() ? 'network' : 'site' ) . '" /></form>';
@@ -57,7 +57,7 @@ class Japh_Butler {
 		echo '</div>';
 	}
 
-	function wpbutler_enqueue() {
+	function enqueue() {
 		// Enqueue styles
 		if ( 'classic' == get_user_option( 'admin_color') ) {
 			wp_enqueue_style ( 'butler-jquery-ui-css', plugin_dir_url( __FILE__ ) . 'jquery-ui-css/jquery-ui-classic.css' );
@@ -76,7 +76,7 @@ class Japh_Butler {
 		wp_enqueue_script( 'wpbutler', plugins_url( 'wpbutler.js', __FILE__ ), array( 'jquery-ui-core', 'jquery-ui-autocomplete', 'jquery-ui-dialog', 'keystroke' ), $this->version, true );
 	}
 
-	function wpbutler_generate_generic_actions( $actions ) {
+	function generate_generic_actions( $actions ) {
 		array_push( $actions, array( "label" => "Go to Dashboard", "url" => "index.php" ) );
 		array_push( $actions, array( "label" => "Home", "url" => "index.php" ) );
 		array_push( $actions, array( "label" => "Update Core", "url" => "update-core.php" ) );
@@ -93,7 +93,7 @@ class Japh_Butler {
 		return $actions;
 	}
 
-	function wpbutler_generate_site_actions( $actions ) {
+	function generate_site_actions( $actions ) {
 		array_push( $actions, array( "label" => "Media Library", "url" => "upload.php" ) );
 		array_push( $actions, array( "label" => "Add Media", "url" => "media-new.php" ) );
 		array_push( $actions, array( "label" => "Upload Media", "url" => "media-new.php" ) );
@@ -117,11 +117,11 @@ class Japh_Butler {
 		return $actions;
 	}
 
-	function wpbutler_generate_multisite_actions( $actions ) {
+	function generate_multisite_actions( $actions ) {
 		return $actions;
 	}
 
-	function wpbutler_generate_post_type_actions( $actions ) {
+	function generate_post_type_actions( $actions ) {
 		foreach ( $this->post_types as $post_type => $post_type_object ) {
 			$name = ucfirst( $post_type_object->labels->name );
 			$singular_name = ucfirst( $post_type_object->labels->singular_name );
@@ -138,7 +138,7 @@ class Japh_Butler {
 		return $actions;
 	}
 
-	function wpbutler_generate_taxonomy_actions( $actions ) {
+	function generate_taxonomy_actions( $actions ) {
 		foreach ( $this->taxonomies as $taxonomy => $taxonomy_object ) {
 			$name = ucfirst( $taxonomy_object->labels->name );
 			$singular_name = ucfirst( $taxonomy_object->labels->singular_name );
@@ -155,7 +155,7 @@ class Japh_Butler {
 		return $actions;
 	}
 
-	function wpbutler_actions() {
+	function actions() {
 		$return = array();
 		$term = $_REQUEST['term'];
 		$nonce = $_REQUEST['_nonce'];
@@ -164,15 +164,15 @@ class Japh_Butler {
 		if ( is_admin() && wp_verify_nonce( $nonce, 'wp_butler_nonce' ) ) {
 			$butler_actions = array();
 
-			$butler_actions = $this->wpbutler_generate_generic_actions( $butler_actions );
+			$butler_actions = $this->generate_generic_actions( $butler_actions );
 			if ( is_network_admin() || $context == 'network' ) {
-				$butler_actions = $this->wpbutler_generate_multisite_actions( $butler_actions );
+				$butler_actions = $this->generate_multisite_actions( $butler_actions );
 			}
 			else {
-				$butler_actions = $this->wpbutler_generate_site_actions( $butler_actions );
+				$butler_actions = $this->generate_site_actions( $butler_actions );
 			}
-			$butler_actions = $this->wpbutler_generate_post_type_actions( $butler_actions );
-			$butler_actions = $this->wpbutler_generate_taxonomy_actions( $butler_actions );
+			$butler_actions = $this->generate_post_type_actions( $butler_actions );
+			$butler_actions = $this->generate_taxonomy_actions( $butler_actions );
 
 			$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
 
