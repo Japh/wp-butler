@@ -15,6 +15,14 @@ Provides a text field in the WP Admin allowing you to jump to common WP Actions.
 
 WP Butler adds a simple text field to your WordPress Admin, that puts everything at your fingertips. Simply start typing the action you wish to perform, and it will show you all the possible options. You're always a single click away.
 
+### Butler Search
+
+You can now even search your posts from WP Butler. Just type 'search', followed by a keyword from one of your posts, then select the post you were after.
+
+### Internationalisation
+
+WP Butler now supports internationalisation. Most of this is provided by WordPress itself, however the few parts exclusive to WP Butler that need translating could use some help. If you can translate WP Butler to a language other than English, please get in touch!
+
 ## Installation
 
 1. Upload the 'wp-butler' folder to the '/wp-content/plugins/' directory
