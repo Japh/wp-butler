@@ -39,6 +39,8 @@ class Japh_Butler {
 	function __construct() {
 
 		if ( is_admin() ) {
+			load_plugin_textdomain( 'wp-butler', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
 			$this->post_types = get_post_types( array( 'show_in_nav_menus' => true ), 'objects', 'and' );
 			$this->taxonomies = get_taxonomies( array( 'show_in_nav_menus' => true ), 'objects', 'and' );
 
@@ -50,9 +52,9 @@ class Japh_Butler {
 	}
 
 	function footer() {
-		echo '<div id="wp-butler-dialog" title="What would you like to do?">';
+		echo '<div id="wp-butler-dialog" title="' . __( "What would you like to do?", "wp-butler" ) . '">';
 		echo '	<p>';
-		echo '		<form id="wp-butler-form"><input type="text" placeholder="Just start typing..." id="wp-butler-field"><input type="hidden" id="wp-butler-nonce" name="wp-butler-nonce" value="' . wp_create_nonce( 'wp_butler_nonce' ) . '" /><input type="hidden" id="wp-butler-context" name="wp-butler-context" value="' . ( is_network_admin() ? 'network' : 'site' ) . '" /></form>';
+		echo '		<form id="wp-butler-form"><input type="text" placeholder="' . __( "Just start typing", "wp-butler" ) . '..." id="wp-butler-field"><input type="hidden" id="wp-butler-nonce" name="wp-butler-nonce" value="' . wp_create_nonce( 'wp_butler_nonce' ) . '" /><input type="hidden" id="wp-butler-context" name="wp-butler-context" value="' . ( is_network_admin() ? 'network' : 'site' ) . '" /></form>';
 		echo '	</p>';
 		echo '</div>';
 	}
@@ -77,42 +79,37 @@ class Japh_Butler {
 	}
 
 	function generate_generic_actions( $actions ) {
-		array_push( $actions, array( "label" => "Go to Dashboard", "url" => "index.php" ) );
-		array_push( $actions, array( "label" => "Home", "url" => "index.php" ) );
-		array_push( $actions, array( "label" => "Update Core", "url" => "update-core.php" ) );
-		array_push( $actions, array( "label" => "Change Theme", "url" => "themes.php" ) );
-		array_push( $actions, array( "label" => "Install Theme", "url" => "theme-install.php" ) );
-		array_push( $actions, array( "label" => "View Plugins", "url" => "plugins.php" ) );
-		array_push( $actions, array( "label" => "Update Plugins", "url" => "plugins.php" ) );
-		array_push( $actions, array( "label" => "Edit Plugins", "url" => "plugin-editor.php" ) );
-		array_push( $actions, array( "label" => "Install Plugin", "url" => "plugin-install.php" ) );
-		array_push( $actions, array( "label" => "View Users", "url" => "users.php" ) );
-		array_push( $actions, array( "label" => "Add New User", "url" => "user-new.php" ) );
-		array_push( $actions, array( "label" => "Edit Profile", "url" => "profile.php" ) );
+		array_push( $actions, array( "label" => __( "Dashboard" ), "url" => "index.php" ) );
+		array_push( $actions, array( "label" => __( "Home" ), "url" => "index.php" ) );
+		array_push( $actions, array( "label" => __( "WordPress Updates" ), "url" => "update-core.php" ) );
+		array_push( $actions, array( "label" => __( "Manage Themes" ), "url" => "themes.php" ) );
+		array_push( $actions, array( "label" => __( "Install Themes" ), "url" => "theme-install.php" ) );
+		array_push( $actions, array( "label" => __( "Plugins" ), "url" => "plugins.php" ) );
+		array_push( $actions, array( "label" => __( "Update Plugins" ), "url" => "plugins.php" ) );
+		array_push( $actions, array( "label" => __( "Edit Plugins" ), "url" => "plugin-editor.php" ) );
+		array_push( $actions, array( "label" => __( "Install Plugins" ), "url" => "plugin-install.php" ) );
+		array_push( $actions, array( "label" => __( "All Users" ), "url" => "users.php" ) );
+		array_push( $actions, array( "label" => __( "Add New User" ), "url" => "user-new.php" ) );
+		array_push( $actions, array( "label" => __( "Profile" ), "url" => "profile.php" ) );
 
 		return $actions;
 	}
 
 	function generate_site_actions( $actions ) {
-		array_push( $actions, array( "label" => "Media Library", "url" => "upload.php" ) );
-		array_push( $actions, array( "label" => "Add Media", "url" => "media-new.php" ) );
-		array_push( $actions, array( "label" => "Upload Media", "url" => "media-new.php" ) );
-		array_push( $actions, array( "label" => "New Media Item", "url" => "media-new.php" ) );
-		array_push( $actions, array( "label" => "Approve Comments", "url" => "edit-comments.php" ) );
-		array_push( $actions, array( "label" => "View Comments", "url" => "edit-comments.php" ) );
-		array_push( $actions, array( "label" => "Add Widgets", "url" => "widgets.php" ) );
-		array_push( $actions, array( "label" => "Edit Widgets", "url" => "widgets.php" ) );
-		array_push( $actions, array( "label" => "Add Menu", "url" => "nav-menus.php" ) );
-		array_push( $actions, array( "label" => "Edit Menus", "url" => "nav-menus.php" ) );
-		array_push( $actions, array( "label" => "Edit Settings", "url" => "options-general.php" ) );
-		array_push( $actions, array( "label" => "Edit General Settings", "url" => "options-general.php" ) );
-		array_push( $actions, array( "label" => "Edit Writing Settings", "url" => "options-writing.php" ) );
-		array_push( $actions, array( "label" => "Edit Reading Settings", "url" => "options-reading.php" ) );
-		array_push( $actions, array( "label" => "Edit Discussion Settings", "url" => "options-discussion.php" ) );
-		array_push( $actions, array( "label" => "Edit Media Settings", "url" => "options-media.php" ) );
-		array_push( $actions, array( "label" => "Edit Permalinks", "url" => "options-permalink.php" ) );
-		array_push( $actions, array( "label" => "Tools", "url" => "tools.php" ) );
-		array_push( $actions, array( "label" => "Import", "url" => "import.php" ) );
+		array_push( $actions, array( "label" => __( "Media Library" ), "url" => "upload.php" ) );
+		array_push( $actions, array( "label" => __( "Upload New Media" ), "url" => "media-new.php" ) );
+		array_push( $actions, array( "label" => __( "Comments" ), "url" => "edit-comments.php" ) );
+		array_push( $actions, array( "label" => __( "Widgets" ), "url" => "widgets.php" ) );
+		array_push( $actions, array( "label" => __( "Menus" ), "url" => "nav-menus.php" ) );
+		array_push( $actions, array( "label" => __( "Create Menu" ), "url" => "nav-menus.php" ) );
+		array_push( $actions, array( "label" => __( "General Settings" ), "url" => "options-general.php" ) );
+		array_push( $actions, array( "label" => __( "Writing Settings" ), "url" => "options-writing.php" ) );
+		array_push( $actions, array( "label" => __( "Reading Settings" ), "url" => "options-reading.php" ) );
+		array_push( $actions, array( "label" => __( "Discussion Settings" ), "url" => "options-discussion.php" ) );
+		array_push( $actions, array( "label" => __( "Media Settings" ), "url" => "options-media.php" ) );
+		array_push( $actions, array( "label" => __( "Permalink Settings" ), "url" => "options-permalink.php" ) );
+		array_push( $actions, array( "label" => __( "Tools" ), "url" => "tools.php" ) );
+		array_push( $actions, array( "label" => __( "Import" ), "url" => "import.php" ) );
 
 		return $actions;
 	}
@@ -128,11 +125,9 @@ class Japh_Butler {
 			$new_url = 'post-new.php?post_type=' . $post_type;
 			$edit_url = 'edit.php?post_type=' . $post_type;
 
-			array_push( $actions, array( "label" => "Add " . $singular_name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "Create " . $singular_name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "New " . $singular_name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "Edit " . $name, "url" => $edit_url ) );
-			array_push( $actions, array( "label" => "View All " . $name, "url" => $edit_url ) );
+			array_push( $actions, array( "label" => $singular_name . " -> " . __( "Add" ), "url" => $new_url ) );
+			array_push( $actions, array( "label" => $name . " -> " . __( "Edit" ), "url" => $edit_url ) );
+			array_push( $actions, array( "label" => $name . " -> " . __( "View" ), "url" => $edit_url ) );
 		}
 
 		return $actions;
@@ -145,17 +140,17 @@ class Japh_Butler {
 			$edit_url = 'edit-tags.php?taxonomy=' . $taxonomy . '&post_type=' . $taxonomy_object->object_type[0];
 			$new_url = $edit_url;
 
-			array_push( $actions, array( "label" => "Add " . $singular_name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "Create " . $singular_name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "New " . $singular_name, "url" => $new_url ) );
-			array_push( $actions, array( "label" => "Edit " . $name, "url" => $edit_url ) );
-			array_push( $actions, array( "label" => "View " . $name, "url" => $edit_url ) );
+			array_push( $actions, array( "label" => $singular_name . " -> " . __( "Add" ), "url" => $new_url ) );
+			array_push( $actions, array( "label" => $name . " -> " . __( "Edit" ), "url" => $edit_url ) );
+			array_push( $actions, array( "label" => $name . " -> " . __( "View" ), "url" => $edit_url ) );
 		}
 
 		return $actions;
 	}
 
 	function actions() {
+		require_once( ABSPATH . '/wp-includes/l10n.php' );
+
 		$return = array();
 		$term = $_REQUEST['term'];
 		$nonce = $_REQUEST['_nonce'];
@@ -198,7 +193,7 @@ class Japh_Butler {
 					$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
 
 					$random_action_url = $butler_actions[mt_rand( 0, count( $butler_actions ) ) - 1]['url'];
-					array_push( $butler_actions, array( "label" => "Surprise me!", "url" => $random_action_url ) );
+					array_push( $butler_actions, array( "label" => __( "Surprise me!", "wp-butler" ), "url" => $random_action_url ) );
 			}
 
 			foreach ( $butler_actions as $value ) {

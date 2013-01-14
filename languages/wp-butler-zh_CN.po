@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Butler 1.6\n"
+"POT-Creation-Date: 2013-01-14 22:22+1000\n"
+"PO-Revision-Date: 2013-01-14 22:37+1000\n"
+"Last-Translator: Japh <wordpress@japh.com.au>\n"
+"Language-Team: Japh <wordpress@japh.com.au>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: wp-butler.php:55
+msgid "What would you like to do?"
+msgstr "你会想要做什么？"
+
+#: wp-butler.php:57
+msgid "Just start typing"
+msgstr "刚开始打字"
+
+#: wp-butler.php:196
+msgid "Surprise me!"
+msgstr "让我感到惊讶！"

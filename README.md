@@ -24,7 +24,11 @@ WP Butler adds a simple text field to your WordPress Admin, that puts everything
 
 ## Frequently Asked Questions
 
-There are none! ...yet.
+### Why are the translations a little hinky?
+
+Unfortunately, I don't speak / write any languages besides English well enough to translate, so I used Google Translate to get things started. Hopefully others are willing to contribute further translations, and corrections for the ones Google Translate didn't quite get right.
+
+If you want to contribute a translation, please get in touch with me: https://github.com/Japh/wp-butler/issues?state=open
 
 ## Screenshots
 
@@ -34,7 +38,7 @@ There are none! ...yet.
 
 ### 1.6
 
-* 
+* Implemented localization, including translations for Russian, Swedish, Hindi, and Chinese
 
 ### 1.5
 
