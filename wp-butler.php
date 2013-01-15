@@ -165,6 +165,7 @@ class Japh_Butler {
 
 			switch ( $keyword ) {
 				case 'search':
+				case 'edit':
 					array_shift( $term_words );
 					$term = implode( ' ', $term_words );
 					$params = array(
