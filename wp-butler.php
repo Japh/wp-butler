@@ -175,7 +175,7 @@ class Japh_Butler {
 
 					while ( $search->have_posts() ) :
 						$search->next_post();
-						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => 'post.php?post=' . $search->post->ID . '&action=edit' ) );
+						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_edit_post_link($search->post->ID,'raw') ) );
 					endwhile;
 
 					break;
