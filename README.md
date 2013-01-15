@@ -47,6 +47,7 @@ If you want to contribute a translation, please get in touch with me: https://gi
 ### 1.7
 
 * Implemented 'edit' alternative keyword for 'search' (more purposeful), also implemented new 'view' keyword. Props @stephenh1988.
+* Keywords are now translatable
 
 ### 1.6
 
