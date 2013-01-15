@@ -164,8 +164,8 @@ class Japh_Butler {
 			$butler_actions = array();
 
 			switch ( $keyword ) {
-				case 'search':
-				case 'edit':
+				case __( 'search' ):
+				case __( 'edit' ):
 					array_shift( $term_words );
 					$term = implode( ' ', $term_words );
 					$params = array(
@@ -180,7 +180,7 @@ class Japh_Butler {
 					endwhile;
 
 					break;
-				case 'view':
+				case __( 'view' ):
 					array_shift( $term_words );
 					$term = implode( ' ', $term_words );
 					$params = array(
