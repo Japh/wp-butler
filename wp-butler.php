@@ -180,6 +180,21 @@ class Japh_Butler {
 					endwhile;
 
 					break;
+				case 'view':
+					array_shift( $term_words );
+					$term = implode( ' ', $term_words );
+					$params = array(
+						's' => $term,
+						'posts_per_page' => 10,
+					);
+					$search = new WP_Query( $params );
+
+					while ( $search->have_posts() ) :
+						$search->next_post();
+						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_permalink($search->post->ID) ) );
+					endwhile;
+
+					break;
 				default:
 					$butler_actions = $this->generate_generic_actions( $butler_actions );
 					if ( is_network_admin() || $context == 'network' ) {
