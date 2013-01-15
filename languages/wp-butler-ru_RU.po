@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Butler 1.6\n"
 "POT-Creation-Date: 2013-01-14 22:22+1000\n"
-"PO-Revision-Date: 2013-01-14 22:32+1000\n"
+"PO-Revision-Date: 2013-01-16 00:16+1000\n"
 "Last-Translator: Japh <wordpress@japh.com.au>\n"
 "Language-Team: Japh <wordpress@japh.com.au>\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,18 @@ msgstr "Что бы вы хотели сделать?"
 msgid "Just start typing"
 msgstr "Просто наберите на клавиатуре"
 
-#: wp-butler.php:196
+#: wp-butler.php:167
+msgid "search"
+msgstr "поиск"
+
+#: wp-butler.php:168
+msgid "edit"
+msgstr "изменить"
+
+#: wp-butler.php:183
+msgid "view"
+msgstr "перейти"
+
+#: wp-butler.php:212
 msgid "Surprise me!"
 msgstr "Удиви меня!"
