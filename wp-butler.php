@@ -96,6 +96,7 @@ class Japh_Butler {
 	}
 
 	function generate_site_actions( $actions ) {
+		
 		array_push( $actions, array( "label" => __( "Media Library" ), "url" => "upload.php" ) );
 		array_push( $actions, array( "label" => __( "Upload New Media" ), "url" => "media-new.php" ) );
 		array_push( $actions, array( "label" => __( "Comments" ), "url" => "edit-comments.php" ) );
@@ -110,11 +111,25 @@ class Japh_Butler {
 		array_push( $actions, array( "label" => __( "Permalink Settings" ), "url" => "options-permalink.php" ) );
 		array_push( $actions, array( "label" => __( "Tools" ), "url" => "tools.php" ) );
 		array_push( $actions, array( "label" => __( "Import" ), "url" => "import.php" ) );
-
+		
+		// check for multisite install
+		if ( is_multisite() ) {
+			array_push( $actions, array( "label" => __( "Network Admin Dashboard" ), "url" => "network/index.php" ) );
+		}
+		
 		return $actions;
 	}
 
 	function generate_multisite_actions( $actions ) {
+		
+		array_push( $actions, array( "label" => __( "Dashboard" ), "url" => "index.php" ) );
+		array_push( $actions, array( "label" => __( "All Sites" ), "url" => "sites.php" ) );
+		array_push( $actions, array( "label" => __( "Add New Site" ), "url" => "site-new.php" ) );
+		array_push( $actions, array( "label" => __( "Network Settings" ), "url" => "settings.php" ) );
+		array_push( $actions, array( "label" => __( "Network Setup" ), "url" => "setup.php" ) );
+		array_push( $actions, array( "label" => __( "Available Network" ), "url" => "update-core.php" ) );
+		array_push( $actions, array( "label" => __( "Update Network" ), "url" => "upgrade.php" ) );
+		
 		return $actions;
 	}
 
@@ -165,7 +180,6 @@ class Japh_Butler {
 
 			switch ( $keyword ) {
 				case 'search':
-				case 'edit':
 					array_shift( $term_words );
 					$term = implode( ' ', $term_words );
 					$params = array(
@@ -176,22 +190,7 @@ class Japh_Butler {
 
 					while ( $search->have_posts() ) :
 						$search->next_post();
-						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_edit_post_link($search->post->ID,'raw') ) );
-					endwhile;
-
-					break;
-				case 'view':
-					array_shift( $term_words );
-					$term = implode( ' ', $term_words );
-					$params = array(
-						's' => $term,
-						'posts_per_page' => 10,
-					);
-					$search = new WP_Query( $params );
-
-					while ( $search->have_posts() ) :
-						$search->next_post();
-						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_permalink($search->post->ID) ) );
+						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => 'post.php?post=' . $search->post->ID . '&action=edit' ) );
 					endwhile;
 
 					break;
@@ -215,7 +214,7 @@ class Japh_Butler {
 			foreach ( $butler_actions as $value ) {
 				if ( preg_match( '/' . $term . '/i', $value['label'] ) ) {
 					$return[] = array(
-						'label' => $value['label'],
+						'label' => html_entity_decode( $value['label'], ENT_QUOTES, get_option( 'blog_charset' ) ),
 						'url' => $value['url']
 					);
 				}
