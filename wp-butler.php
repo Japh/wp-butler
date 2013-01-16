@@ -96,6 +96,7 @@ class Japh_Butler {
 	}
 
 	function generate_site_actions( $actions ) {
+		
 		array_push( $actions, array( "label" => __( "Media Library" ), "url" => "upload.php" ) );
 		array_push( $actions, array( "label" => __( "Upload New Media" ), "url" => "media-new.php" ) );
 		array_push( $actions, array( "label" => __( "Comments" ), "url" => "edit-comments.php" ) );
@@ -110,11 +111,25 @@ class Japh_Butler {
 		array_push( $actions, array( "label" => __( "Permalink Settings" ), "url" => "options-permalink.php" ) );
 		array_push( $actions, array( "label" => __( "Tools" ), "url" => "tools.php" ) );
 		array_push( $actions, array( "label" => __( "Import" ), "url" => "import.php" ) );
-
+		
+		// check for multisite install
+		if ( is_multisite() ) {
+			array_push( $actions, array( "label" => __( "Network Admin Dashbaord" ), "url" => "network/index.php" ) );
+		}
+		
 		return $actions;
 	}
 
 	function generate_multisite_actions( $actions ) {
+		
+		array_push( $actions, array( "label" => __( "Dashboard" ), "url" => "index.php" ) );
+		array_push( $actions, array( "label" => __( "All Sites" ), "url" => "sites.php" ) );
+		array_push( $actions, array( "label" => __( "Add New Site" ), "url" => "site-new.php" ) );
+		array_push( $actions, array( "label" => __( "Network Settings" ), "url" => "settings.php" ) );
+		array_push( $actions, array( "label" => __( "Network Setup" ), "url" => "setup.php" ) );
+		array_push( $actions, array( "label" => __( "Available Network" ), "url" => "update-core.php" ) );
+		array_push( $actions, array( "label" => __( "Update Network" ), "url" => "upgrade.php" ) );
+		
 		return $actions;
 	}
 
