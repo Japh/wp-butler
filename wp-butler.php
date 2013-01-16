@@ -165,7 +165,6 @@ class Japh_Butler {
 
 			switch ( $keyword ) {
 				case 'search':
-				case 'edit':
 					array_shift( $term_words );
 					$term = implode( ' ', $term_words );
 					$params = array(
@@ -176,22 +175,7 @@ class Japh_Butler {
 
 					while ( $search->have_posts() ) :
 						$search->next_post();
-						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_edit_post_link($search->post->ID,'raw') ) );
-					endwhile;
-
-					break;
-				case 'view':
-					array_shift( $term_words );
-					$term = implode( ' ', $term_words );
-					$params = array(
-						's' => $term,
-						'posts_per_page' => 10,
-					);
-					$search = new WP_Query( $params );
-
-					while ( $search->have_posts() ) :
-						$search->next_post();
-						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_permalink($search->post->ID) ) );
+						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => 'post.php?post=' . $search->post->ID . '&action=edit' ) );
 					endwhile;
 
 					break;
@@ -215,7 +199,7 @@ class Japh_Butler {
 			foreach ( $butler_actions as $value ) {
 				if ( preg_match( '/' . $term . '/i', $value['label'] ) ) {
 					$return[] = array(
-						'label' => $value['label'],
+						'label' => html_entity_decode( $value['label'], ENT_QUOTES, get_option( 'blog_charset' ) ),
 						'url' => $value['url']
 					);
 				}
