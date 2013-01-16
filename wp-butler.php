@@ -114,7 +114,7 @@ class Japh_Butler {
 		
 		// check for multisite install
 		if ( is_multisite() ) {
-			array_push( $actions, array( "label" => __( "Network Admin Dashbaord" ), "url" => "network/index.php" ) );
+			array_push( $actions, array( "label" => __( "Network Admin Dashboard" ), "url" => "network/index.php" ) );
 		}
 		
 		return $actions;
