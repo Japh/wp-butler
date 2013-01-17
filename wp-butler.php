@@ -81,35 +81,61 @@ class Japh_Butler {
 	function generate_generic_actions( $actions ) {
 		array_push( $actions, array( "label" => __( "Dashboard" ), "url" => "index.php" ) );
 		array_push( $actions, array( "label" => __( "Home" ), "url" => "index.php" ) );
-		array_push( $actions, array( "label" => __( "WordPress Updates" ), "url" => "update-core.php" ) );
-		array_push( $actions, array( "label" => __( "Manage Themes" ), "url" => "themes.php" ) );
-		array_push( $actions, array( "label" => __( "Install Themes" ), "url" => "theme-install.php" ) );
-		array_push( $actions, array( "label" => __( "Plugins" ), "url" => "plugins.php" ) );
-		array_push( $actions, array( "label" => __( "Update Plugins" ), "url" => "plugins.php" ) );
-		array_push( $actions, array( "label" => __( "Edit Plugins" ), "url" => "plugin-editor.php" ) );
-		array_push( $actions, array( "label" => __( "Install Plugins" ), "url" => "plugin-install.php" ) );
-		array_push( $actions, array( "label" => __( "All Users" ), "url" => "users.php" ) );
-		array_push( $actions, array( "label" => __( "Add New User" ), "url" => "user-new.php" ) );
+		if ( current_user_can( 'update_core' ) ) {
+			array_push( $actions, array( "label" => __( "WordPress Updates" ), "url" => "update-core.php" ) );
+		}
+		if ( current_user_can( 'switch_themes' ) ) {
+			array_push( $actions, array( "label" => __( "Manage Themes" ), "url" => "themes.php" ) );
+		}
+		if ( current_user_can( 'install_themes' ) ) {
+			array_push( $actions, array( "label" => __( "Install Themes" ), "url" => "theme-install.php" ) );
+		}
+		if ( current_user_can( 'activate_plugins' ) ) {
+			array_push( $actions, array( "label" => __( "Plugins" ), "url" => "plugins.php" ) );
+			array_push( $actions, array( "label" => __( "Update Plugins" ), "url" => "plugins.php" ) );
+		}
+		if ( current_user_can( 'edit_plugins' ) ) {
+			array_push( $actions, array( "label" => __( "Edit Plugins" ), "url" => "plugin-editor.php" ) );
+		}
+		if ( current_user_can( 'install_plugins' ) ) {
+			array_push( $actions, array( "label" => __( "Install Plugins" ), "url" => "plugin-install.php" ) );
+		}
+		if ( current_user_can( 'list_users' ) ) {
+			array_push( $actions, array( "label" => __( "All Users" ), "url" => "users.php" ) );
+		}
+		if ( current_user_can( 'create_users' ) ) {
+			array_push( $actions, array( "label" => __( "Add New User" ), "url" => "user-new.php" ) );
+		}
 		array_push( $actions, array( "label" => __( "Profile" ), "url" => "profile.php" ) );
 
 		return $actions;
 	}
 
 	function generate_site_actions( $actions ) {
-		array_push( $actions, array( "label" => __( "Media Library" ), "url" => "upload.php" ) );
-		array_push( $actions, array( "label" => __( "Upload New Media" ), "url" => "media-new.php" ) );
-		array_push( $actions, array( "label" => __( "Comments" ), "url" => "edit-comments.php" ) );
-		array_push( $actions, array( "label" => __( "Widgets" ), "url" => "widgets.php" ) );
-		array_push( $actions, array( "label" => __( "Menus" ), "url" => "nav-menus.php" ) );
-		array_push( $actions, array( "label" => __( "Create Menu" ), "url" => "nav-menus.php" ) );
-		array_push( $actions, array( "label" => __( "General Settings" ), "url" => "options-general.php" ) );
-		array_push( $actions, array( "label" => __( "Writing Settings" ), "url" => "options-writing.php" ) );
-		array_push( $actions, array( "label" => __( "Reading Settings" ), "url" => "options-reading.php" ) );
-		array_push( $actions, array( "label" => __( "Discussion Settings" ), "url" => "options-discussion.php" ) );
-		array_push( $actions, array( "label" => __( "Media Settings" ), "url" => "options-media.php" ) );
-		array_push( $actions, array( "label" => __( "Permalink Settings" ), "url" => "options-permalink.php" ) );
+		if ( current_user_can( 'upload_files' ) ) {
+			array_push( $actions, array( "label" => __( "Media Library" ), "url" => "upload.php" ) );
+			array_push( $actions, array( "label" => __( "Upload New Media" ), "url" => "media-new.php" ) );
+		}
+		if ( current_user_can( 'moderate_comments' ) ) {
+			array_push( $actions, array( "label" => __( "Comments" ), "url" => "edit-comments.php" ) );
+		}
+		if ( current_user_can( 'edit_theme_options' ) ) {
+			array_push( $actions, array( "label" => __( "Widgets" ), "url" => "widgets.php" ) );
+			array_push( $actions, array( "label" => __( "Menus" ), "url" => "nav-menus.php" ) );
+			array_push( $actions, array( "label" => __( "Create Menu" ), "url" => "nav-menus.php" ) );
+		}
+		if ( current_user_can( 'manage_options' ) ) {
+			array_push( $actions, array( "label" => __( "General Settings" ), "url" => "options-general.php" ) );
+			array_push( $actions, array( "label" => __( "Writing Settings" ), "url" => "options-writing.php" ) );
+			array_push( $actions, array( "label" => __( "Reading Settings" ), "url" => "options-reading.php" ) );
+			array_push( $actions, array( "label" => __( "Discussion Settings" ), "url" => "options-discussion.php" ) );
+			array_push( $actions, array( "label" => __( "Media Settings" ), "url" => "options-media.php" ) );
+			array_push( $actions, array( "label" => __( "Permalink Settings" ), "url" => "options-permalink.php" ) );
+		}
 		array_push( $actions, array( "label" => __( "Tools" ), "url" => "tools.php" ) );
-		array_push( $actions, array( "label" => __( "Import" ), "url" => "import.php" ) );
+		if ( current_user_can( 'import' ) ) {
+			array_push( $actions, array( "label" => __( "Import" ), "url" => "import.php" ) );
+		}
 
 		return $actions;
 	}
@@ -125,9 +151,11 @@ class Japh_Butler {
 			$new_url = 'post-new.php?post_type=' . $post_type;
 			$edit_url = 'edit.php?post_type=' . $post_type;
 
-			array_push( $actions, array( "label" => $singular_name . " -> " . __( "Add" ), "url" => $new_url ) );
-			array_push( $actions, array( "label" => $name . " -> " . __( "Edit" ), "url" => $edit_url ) );
-			array_push( $actions, array( "label" => $name . " -> " . __( "View" ), "url" => $edit_url ) );
+			if ( current_user_can( 'edit_posts' ) ) {
+				array_push( $actions, array( "label" => $singular_name . " -> " . __( "Add" ), "url" => $new_url ) );
+				array_push( $actions, array( "label" => $name . " -> " . __( "Edit" ), "url" => $edit_url ) );
+				array_push( $actions, array( "label" => $name . " -> " . __( "View" ), "url" => $edit_url ) );
+			}
 		}
 
 		return $actions;
@@ -140,9 +168,11 @@ class Japh_Butler {
 			$edit_url = 'edit-tags.php?taxonomy=' . $taxonomy . '&post_type=' . $taxonomy_object->object_type[0];
 			$new_url = $edit_url;
 
-			array_push( $actions, array( "label" => $singular_name . " -> " . __( "Add" ), "url" => $new_url ) );
-			array_push( $actions, array( "label" => $name . " -> " . __( "Edit" ), "url" => $edit_url ) );
-			array_push( $actions, array( "label" => $name . " -> " . __( "View" ), "url" => $edit_url ) );
+			if ( current_user_can( 'manage_categories' ) ) {
+				array_push( $actions, array( "label" => $singular_name . " -> " . __( "Add" ), "url" => $new_url ) );
+				array_push( $actions, array( "label" => $name . " -> " . __( "Edit" ), "url" => $edit_url ) );
+				array_push( $actions, array( "label" => $name . " -> " . __( "View" ), "url" => $edit_url ) );
+			}
 		}
 
 		return $actions;
