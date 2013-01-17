@@ -146,11 +146,17 @@ class Japh_Butler {
 	}
 
 	function generate_multisite_actions( $actions ) {
-		array_push( $actions, array( "label" => __( "All Sites" ), "url" => "sites.php" ) );
-		array_push( $actions, array( "label" => __( "Add New Site" ), "url" => "site-new.php" ) );
-		array_push( $actions, array( "label" => __( "Network Settings" ), "url" => "settings.php" ) );
-		array_push( $actions, array( "label" => __( "Network Setup" ), "url" => "setup.php" ) );
-		array_push( $actions, array( "label" => __( "Update Network" ), "url" => "upgrade.php" ) );
+		if ( current_user_can( 'manage_sites' ) ) {
+			array_push( $actions, array( "label" => __( "All Sites" ), "url" => "sites.php" ) );
+			array_push( $actions, array( "label" => __( "Add New Site" ), "url" => "site-new.php" ) );
+		}
+		if ( current_user_can( 'manage_network_options' ) ) {
+			array_push( $actions, array( "label" => __( "Network Settings" ), "url" => "settings.php" ) );
+		}
+		if ( current_user_can( 'manage_network' ) ) {
+			array_push( $actions, array( "label" => __( "Network Setup" ), "url" => "setup.php" ) );
+			array_push( $actions, array( "label" => __( "Update Network" ), "url" => "upgrade.php" ) );
+		}
 		
 		return $actions;
 	}
