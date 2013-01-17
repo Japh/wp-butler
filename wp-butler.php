@@ -137,10 +137,21 @@ class Japh_Butler {
 			array_push( $actions, array( "label" => __( "Import" ), "url" => "import.php" ) );
 		}
 
+		// check for multisite install
+		if ( is_multisite() ) {
+			array_push( $actions, array( "label" => __( "Network Admin Dashboard" ), "url" => "network/index.php" ) );
+		}
+		
 		return $actions;
 	}
 
 	function generate_multisite_actions( $actions ) {
+		array_push( $actions, array( "label" => __( "All Sites" ), "url" => "sites.php" ) );
+		array_push( $actions, array( "label" => __( "Add New Site" ), "url" => "site-new.php" ) );
+		array_push( $actions, array( "label" => __( "Network Settings" ), "url" => "settings.php" ) );
+		array_push( $actions, array( "label" => __( "Network Setup" ), "url" => "setup.php" ) );
+		array_push( $actions, array( "label" => __( "Update Network" ), "url" => "upgrade.php" ) );
+		
 		return $actions;
 	}
 
@@ -245,7 +256,7 @@ class Japh_Butler {
 			foreach ( $butler_actions as $value ) {
 				if ( preg_match( '/' . $term . '/i', $value['label'] ) ) {
 					$return[] = array(
-						'label' => $value['label'],
+						'label' => html_entity_decode( $value['label'], ENT_QUOTES, get_option( 'blog_charset' ) ),
 						'url' => $value['url']
 					);
 				}
