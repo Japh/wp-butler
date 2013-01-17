@@ -49,6 +49,8 @@ If you want to contribute a translation, please get in touch with me: https://gi
 * Implemented 'edit' alternative keyword for 'search' (more purposeful), also implemented new 'view' keyword. Props @stephenh1988.
 * Keywords are now translatable
 * Updated keyword translations for Russian, Swedish, Hindi, and Chinese (not reliable, used Google Translate :()
+* Added German translations. Props @bueltge.
+* Adds settings for Multisite networks. Props @bueltge.
 * Implemented capability checks
 
 ### 1.6
