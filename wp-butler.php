@@ -89,10 +89,21 @@ class Japh_Butler {
 		wp_enqueue_style( 'wpbutler' );
 		
 		// Enqueue scripts
-		wp_enqueue_script( 'jquery-ui-autocomplete' );
-		wp_enqueue_script( 'jquery-ui-dialog' );
-		wp_enqueue_script( 'keystroke', plugins_url( 'keystroke/jquery.keystroke.min.js', __FILE__ ), array( 'jquery' ), '0d77ac267da80cbe0e0ca8e6fe8b5b2bb8ee1bac', true );
-		wp_enqueue_script( 'wpbutler', plugins_url( 'wpbutler.js', __FILE__ ), array( 'jquery-ui-core', 'jquery-ui-autocomplete', 'jquery-ui-dialog', 'keystroke' ), $this->version, true );
+		wp_register_script(
+			'keystroke',
+			plugins_url( 'keystroke/jquery.keystroke.min.js', __FILE__ ),#
+			array( 'jquery' ),
+			'0d77ac267da80cbe0e0ca8e6fe8b5b2bb8ee1bac',
+			TRUE
+		);
+		wp_register_script(
+			'wpbutler',
+			plugins_url( 'wpbutler.js', __FILE__ ),
+			array( 'jquery-ui-autocomplete', 'jquery-ui-dialog', 'keystroke' ),
+			$this->version,
+			TRUE
+		);
+		wp_enqueue_script( 'wpbutler' );
 	}
 
 	// Action methods
