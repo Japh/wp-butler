@@ -78,6 +78,7 @@ class Japh_Butler {
 		wp_enqueue_script( 'wpbutler', plugins_url( 'wpbutler.js', __FILE__ ), array( 'jquery-ui-core', 'jquery-ui-autocomplete', 'jquery-ui-dialog', 'keystroke' ), $this->version, true );
 	}
 
+	// Action methods
 	function generate_generic_actions( $actions ) {
 		array_push( $actions, array( "label" => __( "Dashboard" ), "url" => "index.php" ) );
 		array_push( $actions, array( "label" => __( "Home" ), "url" => "index.php" ) );
@@ -195,6 +196,86 @@ class Japh_Butler {
 		return $actions;
 	}
 
+	// Keyword methods
+	function search_keyword( $term, $actions ) {
+		$term_words = explode( ' ', $_REQUEST['term'] );
+		$keyword = array_shift( $term_words );
+
+		$keyword_synonyms = array( 'search', 'find', 'edit', 'view' );
+
+		if ( ! in_array( $keyword, $keyword_synonyms ) ) {
+			return array( $term, $actions );
+		}
+
+		if ( array_key_exists( $term_words[0], $this->post_types ) ) {
+			$search_post_type = array_shift( $term_words );
+		}
+		else {
+			$search_post_type = 'any';
+		}
+
+		$term = implode( ' ', $term_words );
+		$params = array(
+			's' => $term,
+			'posts_per_page' => 10,
+			'post_type' => $search_post_type,
+		);
+		$search = new WP_Query( $params );
+
+		$actions = array();
+
+		while ( $search->have_posts() ) :
+			$search->next_post();
+			if ( $keyword == 'view' ) {
+				array_push( $actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_permalink( $search->post->ID ) ) );
+			}
+			else {
+				array_push( $actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_edit_post_link( $search->post->ID, 'raw' ) ) );
+			}
+		endwhile;
+
+		return array( $term, $actions );
+	}
+
+	function activate_plugin_keyword( $term, $actions ) {
+		$term_words = explode( ' ', $_REQUEST['term'] );
+		$keyword = array_shift( $term_words );
+
+		$keyword_synonyms = array( 'activate', 'deactivate' );
+
+		if ( ! in_array( $keyword, $keyword_synonyms ) ) {
+			return array( $term, $actions );
+		}
+
+		$term = implode( ' ', $term_words );
+
+		$plugins = get_plugins();
+		$plugin_matches = array();
+
+		$actions = array();
+
+		foreach ( $plugins as $plugin_file => $plugin ) {
+			if ( $keyword == 'deactivate' ) {
+				if ( preg_match( '/' . $term . '/i', $plugin['Title'] ) && is_plugin_active( $plugin_file ) ) {
+					array_push ( $actions, array(
+						'label' => html_entity_decode( "{$plugin['Title']} v{$plugin['Version']}", ENT_QUOTES, get_option( 'blog_charset' ) ),
+						'url' => add_query_arg( '_wpnonce', wp_create_nonce( 'deactivate-plugin_' . $plugin_file ), "plugins.php?action=deactivate&plugin={$plugin_file}" )
+					) );
+				}
+			}
+			else {
+				if ( preg_match( '/' . $term . '/i', $plugin['Title'] ) && ! is_plugin_active( $plugin_file ) ) {
+					array_push ( $actions, array(
+						'label' => html_entity_decode( "{$plugin['Title']} v{$plugin['Version']}", ENT_QUOTES, get_option( 'blog_charset' ) ),
+						'url' => add_query_arg( '_wpnonce', wp_create_nonce( 'activate-plugin_' . $plugin_file ), "plugins.php?action=activate&plugin={$plugin_file}" )
+					) );
+				}
+			}
+		}
+
+		return array( $term, $actions );
+	}
+
 	function actions() {
 		require_once( ABSPATH . '/wp-includes/l10n.php' );
 
@@ -211,37 +292,6 @@ class Japh_Butler {
 			$butler_actions = array();
 
 			switch ( $keyword ) {
-				case __( 'search' ):
-				case __( 'edit' ):
-					array_shift( $term_words );
-					$term = implode( ' ', $term_words );
-					$params = array(
-						's' => $term,
-						'posts_per_page' => 10,
-					);
-					$search = new WP_Query( $params );
-
-					while ( $search->have_posts() ) :
-						$search->next_post();
-						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_edit_post_link($search->post->ID,'raw') ) );
-					endwhile;
-
-					break;
-				case __( 'view' ):
-					array_shift( $term_words );
-					$term = implode( ' ', $term_words );
-					$params = array(
-						's' => $term,
-						'posts_per_page' => 10,
-					);
-					$search = new WP_Query( $params );
-
-					while ( $search->have_posts() ) :
-						$search->next_post();
-						array_push( $butler_actions, array( "label" => get_the_title( $search->post->ID ), "url" => get_permalink($search->post->ID) ) );
-					endwhile;
-
-					break;
 				default:
 					$butler_actions = $this->generate_generic_actions( $butler_actions );
 					if ( is_network_admin() || $context == 'network' ) {
@@ -254,7 +304,11 @@ class Japh_Butler {
 					$butler_actions = $this->generate_taxonomy_actions( $butler_actions );
 
 					$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
-                    list($term, $butler_actions) = apply_filters( 'wp_butler_ajax_keyword_actions', array($term, $butler_actions) );
+
+					list( $term, $butler_actions ) = $this->search_keyword( $term, $butler_actions );
+					list( $term, $butler_actions ) = $this->activate_plugin_keyword( $term, $butler_actions );
+
+                    list( $term, $butler_actions ) = apply_filters( 'wp_butler_ajax_keyword_actions', array( $term, $butler_actions ) );
 
 					$random_action_url = $butler_actions[mt_rand( 0, count( $butler_actions ) ) - 1]['url'];
 					array_push( $butler_actions, array( "label" => __( "Surprise me!", "wp-butler" ), "url" => $random_action_url ) );
