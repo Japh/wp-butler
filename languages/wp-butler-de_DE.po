@@ -1,8 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Butler 1.6\n"
-"POT-Creation-Date: 2013-01-14 22:22+1000\n"
-"PO-Revision-Date: 2013-01-16 13:33+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-01-20 21:42+0100\n"
+"PO-Revision-Date: 2013-01-20 21:45+0100\n"
 "Last-Translator: Frank Bueltge <frank@bueltge.de>\n"
 "Language-Team: Japh <wordpress@japh.com.au>\n"
 "Language: English\n"
@@ -10,11 +11,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-"X-Poedit-KeywordsList: __\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: /var/www/wp-plugins/wp-butler/\n"
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-0: .\n"
 
 #: wp-butler.php:55
 msgid "What would you like to do?"
@@ -24,6 +25,154 @@ msgstr "Was möchtest du tun?"
 msgid "Just start typing"
 msgstr "Schreibe einfach los"
 
-#: wp-butler.php:196
+#: wp-butler.php:111
+msgid "Dashboard"
+msgstr ""
+
+#: wp-butler.php:112
+msgid "Home"
+msgstr ""
+
+#: wp-butler.php:114
+msgid "WordPress Updates"
+msgstr ""
+
+#: wp-butler.php:117
+msgid "Manage Themes"
+msgstr ""
+
+#: wp-butler.php:120
+msgid "Install Themes"
+msgstr ""
+
+#: wp-butler.php:123
+msgid "Plugins"
+msgstr ""
+
+#: wp-butler.php:124
+msgid "Update Plugins"
+msgstr ""
+
+#: wp-butler.php:127
+msgid "Edit Plugins"
+msgstr ""
+
+#: wp-butler.php:130
+msgid "Install Plugins"
+msgstr ""
+
+#: wp-butler.php:133
+msgid "All Users"
+msgstr ""
+
+#: wp-butler.php:136
+msgid "Add New User"
+msgstr ""
+
+#: wp-butler.php:138
+msgid "Profile"
+msgstr ""
+
+#: wp-butler.php:145
+msgid "Media Library"
+msgstr ""
+
+#: wp-butler.php:146
+msgid "Upload New Media"
+msgstr ""
+
+#: wp-butler.php:149
+msgid "Comments"
+msgstr ""
+
+#: wp-butler.php:152
+msgid "Widgets"
+msgstr ""
+
+#: wp-butler.php:153
+msgid "Menus"
+msgstr ""
+
+#: wp-butler.php:154
+msgid "Create Menu"
+msgstr ""
+
+#: wp-butler.php:157
+msgid "General Settings"
+msgstr ""
+
+#: wp-butler.php:158
+msgid "Writing Settings"
+msgstr ""
+
+#: wp-butler.php:159
+msgid "Reading Settings"
+msgstr ""
+
+#: wp-butler.php:160
+msgid "Discussion Settings"
+msgstr ""
+
+#: wp-butler.php:161
+msgid "Media Settings"
+msgstr ""
+
+#: wp-butler.php:162
+msgid "Permalink Settings"
+msgstr ""
+
+#: wp-butler.php:164
+msgid "Tools"
+msgstr ""
+
+#: wp-butler.php:166
+msgid "Import"
+msgstr ""
+
+#: wp-butler.php:171
+msgid "Network Admin Dashboard"
+msgstr ""
+
+#: wp-butler.php:179
+msgid "All Sites"
+msgstr ""
+
+#: wp-butler.php:180
+msgid "Add New Site"
+msgstr ""
+
+#: wp-butler.php:183
+msgid "Network Settings"
+msgstr ""
+
+#: wp-butler.php:186
+msgid "Network Setup"
+msgstr ""
+
+#: wp-butler.php:187
+msgid "Update Network"
+msgstr ""
+
+#: wp-butler.php:201
+#: wp-butler.php:218
+msgid "Add"
+msgstr ""
+
+#: wp-butler.php:202
+#: wp-butler.php:219
+msgid "Edit"
+msgstr ""
+
+#: wp-butler.php:203
+#: wp-butler.php:220
+msgid "View"
+msgstr ""
+
+#: wp-butler.php:311
+msgid "user"
+msgstr "Benutzer"
+
+#: wp-butler.php:369
 msgid "Surprise me!"
 msgstr "Überrasche mich!"
+

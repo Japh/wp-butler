@@ -363,7 +363,7 @@ class Japh_Butler {
 					list( $term, $butler_actions ) = $this->user_search_keyword( $term, $butler_actions );
 					list( $term, $butler_actions ) = $this->activate_plugin_keyword( $term, $butler_actions );
 
-                    list( $term, $butler_actions ) = apply_filters( 'wp_butler_ajax_keyword_actions', array( $term, $butler_actions ) );
+					list( $term, $butler_actions ) = apply_filters( 'wp_butler_ajax_keyword_actions', array( $term, $butler_actions ) );
 
 					$random_action_url = $butler_actions[mt_rand( 0, count( $butler_actions ) ) - 1]['url'];
 					array_push( $butler_actions, array( "label" => __( "Surprise me!", "wp-butler" ), "url" => $random_action_url ) );
