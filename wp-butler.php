@@ -70,8 +70,6 @@ class Japh_Butler {
 		wp_enqueue_style( 'wpbutler', plugins_url( 'wpbutler.css', __FILE__ ) );
 
 		// Enqueue scripts
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-autocomplete' );
 		wp_enqueue_script( 'jquery-ui-dialog' );
 		wp_enqueue_script( 'keystroke', plugins_url( 'keystroke/jquery.keystroke.min.js', __FILE__ ), array( 'jquery' ), '0d77ac267da80cbe0e0ca8e6fe8b5b2bb8ee1bac', true );
