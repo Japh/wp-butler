@@ -49,6 +49,7 @@ If you want to contribute a translation, please get in touch with me: https://gi
 * Adds a filter which allows you to modify the term and actions allowing users to similuate the behavoir of "keyword" actions (ie "search", "edit" and "view"). Props @spivurno.
 * Moved built-in keywords to methods.
 * Implemented search across all post types, with filtering by keyword.
+* Implemented user search.
 
 ### 1.7
 

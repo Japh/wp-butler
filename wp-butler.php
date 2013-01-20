@@ -276,6 +276,32 @@ class Japh_Butler {
 		return array( $term, $actions );
 	}
 
+	function user_search_keyword( $term, $actions ) {
+		$term_words = explode( ' ', $_REQUEST['term'] );
+		$keyword = array_shift( $term_words );
+
+		$keyword_synonyms = array( 'user' );
+
+		if ( ! in_array( $keyword, $keyword_synonyms ) ) {
+			return array( $term, $actions );
+		}
+
+		$term = implode( ' ', $term_words );
+		$params = array(
+			'search' => $term,
+			'number' => 10,
+		);
+		$users = get_users( $params );
+
+		$actions = array();
+
+		foreach ( $users as $user ) {
+			array_push( $actions, array( "label" => $user->display_name, "url" => 'user-edit.php?user_id=' . $user->ID ) );
+		}
+
+		return array( $term, $actions );
+	}
+
 	function actions() {
 		require_once( ABSPATH . '/wp-includes/l10n.php' );
 
@@ -306,6 +332,7 @@ class Japh_Butler {
 					$butler_actions = apply_filters( 'wp_butler_ajax_actions', $butler_actions );
 
 					list( $term, $butler_actions ) = $this->search_keyword( $term, $butler_actions );
+					list( $term, $butler_actions ) = $this->user_search_keyword( $term, $butler_actions );
 					list( $term, $butler_actions ) = $this->activate_plugin_keyword( $term, $butler_actions );
 
                     list( $term, $butler_actions ) = apply_filters( 'wp_butler_ajax_keyword_actions', array( $term, $butler_actions ) );
