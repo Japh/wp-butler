@@ -62,13 +62,32 @@ class Japh_Butler {
 	function enqueue() {
 		// Enqueue styles
 		if ( 'classic' == get_user_option( 'admin_color') ) {
-			wp_enqueue_style ( 'butler-jquery-ui-css', plugin_dir_url( __FILE__ ) . 'jquery-ui-css/jquery-ui-classic.css' );
+			wp_register_style(
+				'butler-jquery-ui-css',
+				plugin_dir_url( __FILE__ ) . 'jquery-ui-css/jquery-ui-classic.css',
+				array(),
+				FALSE,
+				'screen'
+			);
 		}
 		else {
-			wp_enqueue_style ( 'butler-jquery-ui-css', plugin_dir_url( __FILE__ ) . 'jquery-ui-css/jquery-ui-fresh.css' );
+			wp_register_style(
+				'butler-jquery-ui-css',
+				plugin_dir_url( __FILE__ ) . 'jquery-ui-css/jquery-ui-fresh.css',
+				array(),
+				FALSE,
+				'screen'
+			);
 		}
-		wp_enqueue_style( 'wpbutler', plugins_url( 'wpbutler.css', __FILE__ ) );
-
+		wp_register_style(
+			'wpbutler',
+			plugins_url( 'wpbutler.css', __FILE__ ),
+			array( 'butler-jquery-ui-css' ),
+			FALSE,
+			'screen'
+		);
+		wp_enqueue_style( 'wpbutler' );
+		
 		// Enqueue scripts
 		wp_enqueue_script( 'jquery-ui-autocomplete' );
 		wp_enqueue_script( 'jquery-ui-dialog' );
