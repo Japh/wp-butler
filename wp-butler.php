@@ -405,7 +405,6 @@ class Japh_Butler {
 				'parent'    => 'top-secondary',
 				'secondary' => FALSE,
 				'title'     => apply_filters( 'wp_butler_admin_bar_title', __( 'WP Butler', 'wp-butler' ) ),
-				'href'      => '#',
 				'meta'      => array( 'class' => $classes )
 			)
 		);
