@@ -27,7 +27,7 @@ WP Butler now supports internationalisation. Most of this is provided by WordPre
 
 1. Upload the 'wp-butler' folder to the '/wp-content/plugins/' directory
 1. Activate the WP Butler plugin through the 'Plugins' menu in WordPress
-1. Press `shift+alt+b` on any admin page to launch WP Butler.
+1. Press `shift+alt+b` or click on item `WP Butler` in Admin Bar on any admin page to launch WP Butler.
 1. Work Smarter and Faster!
 
 == Frequently Asked Questions ==
@@ -43,6 +43,10 @@ If you want to contribute a translation, please get in touch with me: https://gi
 1. WP Butler in action
 
 == Changelog ==
+
+= 1.9 =
+
+* Adds item to admin bar to use the butler also via click in admin bar item
 
 = 1.8 =
 
