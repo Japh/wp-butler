@@ -49,6 +49,7 @@ class Japh_Butler {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'admin_footer', array( $this, 'footer' ) );
 		add_action( 'wp_ajax_wp_butler_actions', array( $this, 'actions' ) );
+		add_action( 'admin_bar_menu', array( $this, 'enhance_admin_bar' ), 9999 );
 	}
 
 	function footer() {
@@ -381,7 +382,27 @@ class Japh_Butler {
 
 		wp_die( json_encode( $return ) );
 	}
-
+	
+	public function enhance_admin_bar( $wp_admin_bar ) {
+		
+		if ( ! is_super_admin() || ! is_admin_bar_showing() )
+			return NULL;
+		
+		$classes = apply_filters( 'debug_bar_classes', array() );
+		$classes = implode( " ", $classes );
+		
+		$wp_admin_bar->add_menu(
+			array(
+				'id'        => 'wp-butler',
+				'parent'    => 'top-secondary',
+				'secondary' => FALSE,
+				'title'     => apply_filters( 'wp_butler_admin_bar_title', __( 'WP Butler', 'wp-butler' ) ),
+				'href'      => '#',
+				'meta'      => array( 'class' => $classes )
+			)
+		);
+	}
+	
 }
 
 function execute_wp_butler() {
