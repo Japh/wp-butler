@@ -383,6 +383,14 @@ class Japh_Butler {
 		wp_die( json_encode( $return ) );
 	}
 	
+	/**
+	 * Enhance the admin bar
+	 *
+	 * @param  $wp_admin_bar  Array
+	 * @return void
+	 * @author fb
+	 * @since  01/21/2012
+	 */
 	public function enhance_admin_bar( $wp_admin_bar ) {
 		
 		if ( ! is_super_admin() || ! is_admin_bar_showing() )
