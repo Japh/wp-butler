@@ -395,13 +395,13 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 		 * @since  1.9
 		 */
 		public function enhance_admin_bar( $wp_admin_bar ) {
-			
+
 			if ( ! is_super_admin() || ! is_admin_bar_showing() )
 				return NULL;
-			
+
 			$classes = apply_filters( 'wp_butler_admin_bar_classes', array() );
 			$classes = implode( ' ', $classes );
-			
+
 			$wp_admin_bar->add_menu(
 				array(
 					'id'        => 'wp-butler',
