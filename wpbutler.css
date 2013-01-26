@@ -2,3 +2,8 @@
 	display: none;
 	min-height: inherit !important;
 }
+
+/* Admin Bar item */
+#wp-admin-bar-wp-butler:hover {
+	cursor: pointer;
+}
