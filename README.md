@@ -5,7 +5,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: admin, actions, butler, autocomplete, automate  
 Requires at least: 3.1  
 Tested up to: 3.5  
-Stable tag: 1.8
+Stable tag: 1.9
 
 Provides a text field in the WP Admin allowing you to jump to common WP Actions.
 
@@ -27,7 +27,7 @@ WP Butler now supports internationalisation. Most of this is provided by WordPre
 
 1. Upload the 'wp-butler' folder to the '/wp-content/plugins/' directory
 2. Activate the WP Butler plugin through the 'Plugins' menu in WordPress
-3. Press `shift+alt+b` on any admin page to launch WP Butler.
+3. Press `shift+alt+b` or click on `WP Butler` in the Admin Bar on any admin page to launch WP Butler.
 4. Work Smarter and Faster!
 
 ## Frequently Asked Questions
@@ -43,6 +43,11 @@ If you want to contribute a translation, please get in touch with me: https://gi
 1. WP Butler in action
 
 ## Changelog
+
+### 1.9
+
+* Added admin bar shortcut to use WP Butler by simply clicking it in the admin bar
+* Added admin bar shortcut-related hooks, including for the admin bar item and CSS classes
 
 ### 1.8
 
