@@ -1,29 +1,29 @@
 <?php
-/**
- * Plugin Name: WP Butler
- * Plugin URI:  http://wpbutler.com
- * Description: WP Butler brings you what you need in the Wordpress Admin. An autocomplete menu to let you jump to all the common tasks you may need to perform, just hit <code>shift+alt+b</code>!
- * Version:     1.9
- * Author:      Japh
- * Author URI:  http://japh.com.au
- * License:     GPL2
- *
- * 
- *  Copyright 2013  Japh  (email : wordpress@japh.com.au)
- * 
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License, version 2, as 
- *  published by the Free Software Foundation.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- * 
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+/*
+Plugin Name: WP Butler
+Plugin URI:  http://wpbutler.com
+Description: WP Butler brings you what you need in the Wordpress Admin. An autocomplete menu to let you jump to all the common tasks you may need to perform, just hit <code>shift+alt+b</code>!
+Version:     1.9
+Author:      Japh
+Author URI:  http://japh.com.au
+License:     GPL2
+
+
+ Copyright 2013  Japh  (email : wordpress@japh.com.au)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License, version 2, as 
+ published by the Free Software Foundation.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 // Check to See if the Class already exists!
 if ( ! class_exists( 'Japh_Butler' ) ) {
