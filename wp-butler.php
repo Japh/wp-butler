@@ -395,6 +395,7 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 		 * @since  1.9
 		 */
 		public function enhance_admin_bar( $wp_admin_bar ) {
+			global $wp_admin_bar;
 
 			if ( ! is_super_admin() || ! is_admin_bar_showing() )
 				return NULL;
@@ -402,15 +403,15 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			$classes = apply_filters( 'wp_butler_admin_bar_classes', array() );
 			$classes = implode( ' ', $classes );
 
-			$wp_admin_bar->add_menu(
-				array(
-					'id'        => 'wp-butler',
-					'parent'    => 'top-secondary',
-					'secondary' => FALSE,
-					'title'     => apply_filters( 'wp_butler_admin_bar_title', __( 'WP Butler', 'wp-butler' ) ),
-					'meta'      => array( 'class' => $classes )
-				)
+			$args = array(
+				'id'        => 'wp-butler',
+				'parent'    => 'top-secondary',
+				'secondary' => FALSE,
+				'title'     => apply_filters( 'wp_butler_admin_bar_title', __( 'WP Butler', 'wp-butler' ) ),
+				'meta'      => array( 'class' => $classes )
 			);
+
+			$wp_admin_bar->add_node( $args );
 		}
 
 	}
