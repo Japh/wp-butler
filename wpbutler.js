@@ -5,8 +5,9 @@ jQuery( function($) {
 	$.keyStroke( 66, function() {
 		$( "#wp-butler-dialog" ).dialog({
 			modal: true,
-			closeOnEscape: true
-		});
+			closeOnEscape: true,
+			width: 420
+		}).parent().addClass('butler-ui-widget');
 	
 		$( "#wp-butler-field" ).focus();
 	}, { modKeys: [ 'shiftKey', 'altKey' ] } );
@@ -15,8 +16,9 @@ jQuery( function($) {
 	$( '#wp-admin-bar-wp-butler' ).click( function() {
 		$( "#wp-butler-dialog" ).dialog( {
 			modal: true,
-			closeOnEscape: true
-		});
+			closeOnEscape: true,
+			width: 420
+		}).parent().addClass('butler-ui-widget');
 		
 		$( "#wp-butler-field" ).focus();
 	} );
