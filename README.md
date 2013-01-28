@@ -47,6 +47,7 @@ If you want to contribute a translation, please get in touch with me: https://gi
 ### 2.0
 
 * New look for the Butler dialog. Props @dominicwhittle.
+* Added 'switch' keyword for switching sites on Multisite Networks
 
 ### 1.9.1
 
