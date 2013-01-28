@@ -43,16 +43,17 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 
 			if ( ! is_admin() )
 				return NULL;
-			
+
 			load_plugin_textdomain( 'wp-butler', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-			
+
 			$this->post_types = get_post_types( array( 'show_in_nav_menus' => true ), 'objects', 'and' );
 			$this->taxonomies = get_taxonomies( array( 'show_in_nav_menus' => true ), 'objects', 'and' );
-			
+
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 			add_action( 'admin_footer', array( $this, 'footer' ) );
 			add_action( 'wp_ajax_wp_butler_actions', array( $this, 'actions' ) );
 			add_action( 'admin_bar_menu', array( $this, 'enhance_admin_bar' ), 9999 );
+
 		}
 
 		function footer() {
