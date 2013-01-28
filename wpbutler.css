@@ -1,9 +1,31 @@
 #wp-butler-dialog {
-	display: none;
-	min-height: inherit !important;
-}
+  display: none;
+  min-height: inherit !important; }
 
 /* Admin Bar item */
 #wp-admin-bar-wp-butler:hover {
-	cursor: pointer;
-}
+  cursor: pointer; }
+
+/* Namespaced Butler Widget */
+.butler-ui-widget {
+  padding: 1em;
+  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.3), 0 0 5px rgba(0, 0, 0, 0.6); }
+  .butler-ui-widget .ui-dialog-titlebar {
+    background: none;
+    border: none;
+    padding: 0; }
+  .butler-ui-widget .ui-dialog-content {
+    padding: 0; }
+  .butler-ui-widget p {
+    display: none;
+    margin: 0; }
+  .butler-ui-widget #wp-butler-field {
+    line-height: 1.2;
+    display: block;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    font-size: 2em; }
