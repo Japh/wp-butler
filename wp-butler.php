@@ -25,20 +25,56 @@ License:     GPL2
  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-// Check to See if the Class already exists!
+/**
+ * WP Butler
+ * 
+ * WP Butler brings you what you need in the Wordpress Admin. An autocomplete
+ * menu to let you jump to all the common tasks you may need to perform, just
+ * hit `shift+alt+b`!
+ * 
+ * @author Japh <wordpress@japh.com.au>
+ * @version 2.0
+ * @package WP-Butler
+ * @license http://opensource.org/licenses/gpl-2.0.php GPL2
+ */
+
+// Check to see if the class already exists!
 if ( ! class_exists( 'Japh_Butler' ) ) {
 
 	/**
+	 * WP Butler class
+	 * 
 	 * @package WP-Butler
 	 * @version 2.0
+	 * @since 1.2
 	 */
 
 	class Japh_Butler {
 
+		/**
+		 * Version number for WP Butler
+		 * 
+		 * This is for internal reference, should it be needed.
+		 * 
+		 * @since 1.2
+		 */
 		public $version = '2.0';
+		/**
+		 * Array of available post types
+		 * @since 1.4
+		 */
 		public $post_types = array();
+		/**
+		 * Array of available taxonomies
+		 * @since 1.5
+		 */
 		public $taxonomies = array();
 
+		/**
+		 * Constructor method for WP Butler
+		 * 
+		 * @since 1.2
+		 */
 		function __construct() {
 
 			if ( ! is_admin() )
@@ -56,6 +92,13 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 
 		}
 
+		/**
+		 * Footer HTML output
+		 * 
+		 * This is the HTML for the WP Butler dialog.
+		 * 
+		 * @since 1.2
+		 */
 		function footer() {
 			echo '<div id="wp-butler-dialog" title="' . __( "What would you like to do?", "wp-butler" ) . '">';
 			echo '	<p>';
@@ -64,6 +107,13 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			echo '</div>';
 		}
 
+		/**
+		 * Enqueue scripts and styles
+		 * 
+		 * Properly enqueuing all scripts and styles needed by WP Butler.
+		 * 
+		 * @since 1.2
+		 */
 		function enqueue() {
 			// Enqueue styles
 			if ( 'classic' == get_user_option( 'admin_color') ) {
@@ -111,7 +161,13 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			wp_enqueue_script( 'wpbutler' );
 		}
 
-		// Action methods
+		/**
+		 * Generic action methods
+		 * 
+		 * @since 1.4
+		 * 
+		 * @param Array $actions Array of current actions for WP Butler
+		 */
 		function generate_generic_actions( $actions ) {
 			array_push( $actions, array( "label" => __( "Dashboard" ), "url" => "index.php" ) );
 			array_push( $actions, array( "label" => __( "Home" ), "url" => "index.php" ) );
@@ -145,6 +201,13 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			return $actions;
 		}
 
+		/**
+		 * Single Site action methods
+		 * 
+		 * @since 1.4
+		 * 
+		 * @param Array $actions Array of current actions for WP Butler
+		 */
 		function generate_site_actions( $actions ) {
 			if ( current_user_can( 'upload_files' ) ) {
 				array_push( $actions, array( "label" => __( "Media Library" ), "url" => "upload.php" ) );
@@ -179,6 +242,13 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			return $actions;
 		}
 
+		/**
+		 * Multisite action methods
+		 * 
+		 * @since 1.4
+		 * 
+		 * @param Array $actions Array of current actions for WP Butler
+		 */
 		function generate_multisite_actions( $actions ) {
 			if ( current_user_can( 'manage_sites' ) ) {
 				array_push( $actions, array( "label" => __( "All Sites" ), "url" => "sites.php" ) );
@@ -195,6 +265,13 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			return $actions;
 		}
 
+		/**
+		 * Post Type action methods
+		 * 
+		 * @since 1.5
+		 * 
+		 * @param Array $actions Array of current actions for WP Butler
+		 */
 		function generate_post_type_actions( $actions ) {
 			foreach ( $this->post_types as $post_type => $post_type_object ) {
 				$name = ucfirst( $post_type_object->labels->name );
@@ -212,6 +289,13 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			return $actions;
 		}
 
+		/**
+		 * Taxonomy action methods
+		 * 
+		 * @since 1.5
+		 * 
+		 * @param Array $actions Array of current actions for WP Butler
+		 */
 		function generate_taxonomy_actions( $actions ) {
 			foreach ( $this->taxonomies as $taxonomy => $taxonomy_object ) {
 				$name = ucfirst( $taxonomy_object->labels->name );
@@ -229,7 +313,14 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			return $actions;
 		}
 
-		// Keyword methods
+		/**
+		 * Keyword methods
+		 * 
+		 * @since 1.7
+		 * 
+		 * @param String $term Term for search keyword
+		 * @param Array $actions Array of current actions for WP Butler
+		 */
 		function search_keyword( $term, $actions ) {
 			$term_words = explode( ' ', $_REQUEST['term'] );
 			$keyword = array_shift( $term_words );
@@ -270,6 +361,14 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			return array( $term, $actions );
 		}
 
+		/**
+		 * Keyword for activating plugins
+		 * 
+		 * @since 1.8
+		 * 
+		 * @param String $term Term for plugin activation keyword
+		 * @param Array $actions Array of current actions for WP Butler
+		 */
 		function activate_plugin_keyword( $term, $actions ) {
 			$term_words = explode( ' ', $_REQUEST['term'] );
 			$keyword = array_shift( $term_words );
@@ -309,6 +408,14 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			return array( $term, $actions );
 		}
 
+		/**
+		 * Keyword for searching users
+		 * 
+		 * @since 1.8
+		 *
+		 * @param String $term Term for user search keyword 
+		 * @param Array $actions Array of current actions for WP Butler
+		 */
 		function user_search_keyword( $term, $actions ) {
 			$term_words = explode( ' ', $_REQUEST['term'] );
 			$keyword = array_shift( $term_words );
@@ -335,6 +442,13 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			return array( $term, $actions );
 		}
 
+		/**
+		 * Actions
+		 * 
+		 * Build actions and AJAX callback
+		 * 
+		 * @since 1.2
+		 */
 		function actions() {
 			require_once( ABSPATH . '/wp-includes/l10n.php' );
 
@@ -390,7 +504,7 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 		/**
 		 * Enhance the admin bar
 		 *
-		 * @param  $wp_admin_bar  Array
+		 * @param  Array $wp_admin_bar Instance of WP_Admin_Bar
 		 * @return void
 		 * @author bueltge
 		 * @since  1.9
@@ -419,6 +533,14 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 
 }
 
+/**
+ * Execute WP Butler
+ * 
+ * This function ensures we execute WP Butler at the appropriate time.
+ * 
+ * @package WP-Butler
+ * @since 1.2
+ */
 function execute_wp_butler() {
 	$japh_butler = new Japh_Butler();
 }
