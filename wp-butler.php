@@ -452,7 +452,6 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 		 */
 		function site_switch_keyword( $term, $actions ) {
 			global $current_site;
-
 			$term_words = explode( ' ', $_REQUEST['term'] );
 			$keyword = array_shift( $term_words );
 
