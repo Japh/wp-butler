@@ -451,6 +451,8 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 		 * @param Array $actions Array of current actions for WP Butler
 		 */
 		function site_switch_keyword( $term, $actions ) {
+			global $current_site;
+
 			$term_words = explode( ' ', $_REQUEST['term'] );
 			$keyword = array_shift( $term_words );
 
@@ -467,8 +469,8 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 			$actions = array();
 
 			foreach ( $blogs as $blog ) {
-				if ( preg_match( '/' . $term . '/i', $blog->blogname ) ) {
-					array_push( $actions, array( "label" => $blog->blogname, "url" => get_admin_url( $blog->site_id ) ) );
+				if ( preg_match( '/' . $term . '/i', $blog->blogname ) && ! empty( $current_site ) ) {
+					array_push( $actions, array( "label" => $blog->blogname, "url" => get_admin_url( $blog->userblog_id ) ) );
 				}
 			}
 
@@ -514,14 +516,14 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 						list( $term, $butler_actions ) = $this->search_keyword( $term, $butler_actions );
 						list( $term, $butler_actions ) = $this->user_search_keyword( $term, $butler_actions );
 						list( $term, $butler_actions ) = $this->activate_plugin_keyword( $term, $butler_actions );
-						if ( $context == 'network' ) {
-							list( $term, $butler_actions ) = $this->site_switch_keyword( $term, $butler_actions );
-						}
+						list( $term, $butler_actions ) = $this->site_switch_keyword( $term, $butler_actions );
 
 						list( $term, $butler_actions ) = apply_filters( 'wp_butler_ajax_keyword_actions', array( $term, $butler_actions ) );
 
-						$random_action_url = $butler_actions[mt_rand( 0, count( $butler_actions ) - 1 )]['url'];
-						array_push( $butler_actions, array( "label" => __( "Surprise me!", "wp-butler" ), "url" => $random_action_url ) );
+						if ( ! empty( $butler_actions ) ) {
+							$random_action_url = $butler_actions[mt_rand( 0, count( $butler_actions ) - 1 )]['url'];
+							array_push( $butler_actions, array( "label" => __( "Surprise me!", "wp-butler" ), "url" => $random_action_url ) );
+						}
 				}
 
 				foreach ( $butler_actions as $value ) {
