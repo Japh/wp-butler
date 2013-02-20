@@ -1,8 +1,6 @@
 // WP Butler
 jQuery( function($) {
-	
-	// keyboard shortcut to view dialog
-	$.keyStroke( 66, function() {
+	var openButler = function() {
 		$( "#wp-butler-dialog" ).dialog({
 			modal: true,
 			closeOnEscape: true,
@@ -10,18 +8,13 @@ jQuery( function($) {
 		}).parent().addClass('butler-ui-widget');
 	
 		$( "#wp-butler-field" ).focus();
-	}, { modKeys: [ 'shiftKey', 'altKey' ] } );
+	};
+	
+	// keyboard shortcut to view dialog
+	$.keyStroke( 66, openButler, { modKeys: [ 'shiftKey', 'altKey' ] } );
 	
 	// click on button in admin bar to view dialog
-	$( '#wp-admin-bar-wp-butler' ).click( function() {
-		$( "#wp-butler-dialog" ).dialog( {
-			modal: true,
-			closeOnEscape: true,
-			width: 420
-		}).parent().addClass('butler-ui-widget');
-		
-		$( "#wp-butler-field" ).focus();
-	} );
+	$( '#wp-admin-bar-wp-butler' ).click( openButler );
 	
 	$( "#butler-close-dialog" ).click(function(e) {
 		e.preventDefault();
