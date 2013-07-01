@@ -3,7 +3,7 @@
 Plugin Name: WP Butler
 Plugin URI:  http://wpbutler.com
 Description: WP Butler brings you what you need in the Wordpress Admin. An autocomplete menu to let you jump to all the common tasks you may need to perform, just hit <code>shift+alt+b</code>!
-Version:     2.0.1
+Version:     2.0.2
 Author:      Japh
 Author URI:  http://japh.com.au
 License:     GPL2
@@ -431,7 +431,29 @@ if ( ! class_exists( 'Japh_Butler' ) ) {
 				'search' => $term,
 				'number' => 10,
 			);
-			$users = get_users( $params );
+
+			$users = array();
+
+			if ( is_multisite() ) {
+
+				$blogs = get_blogs_of_user( get_current_user_id() );
+
+				foreach ( $blogs as $blog ) {
+					$params['blog_id'] = $blog->userblog_id;
+					$blog_users = get_users( $params );
+
+					foreach ( $blog_users as $user ) {
+						if ( ! in_array( $user, $users ) ) {
+							$users[] = $user;
+						}
+					}
+
+				}
+
+			}
+			else {
+				$users = get_users( $params );
+			}
 
 			$actions = array();
 
