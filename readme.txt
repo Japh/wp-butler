@@ -48,6 +48,10 @@ If you want to contribute a translation, please get in touch with me: https://gi
 
 * 
 
+= 2.0.2 =
+
+* Bug fix: user search now works for WordPress Multisite installs
+
 = 2.0.1 =
 
 * Bug fix: conflict between jQuery UI styles and core colour picker
